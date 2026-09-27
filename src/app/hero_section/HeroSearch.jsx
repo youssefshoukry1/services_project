@@ -114,7 +114,7 @@ export default function HeroSearch() {
       </form>
 
       {showResults && (
-        <div id="hero-search-results" className="absolute inset-x-0 top-full z-30 mt-3 max-h-[min(62vh,460px)] overflow-y-auto rounded-[1.35rem] border border-gray-100 bg-white p-3 text-left shadow-[0_25px_65px_-25px_rgba(15,23,42,0.32)] sm:p-4" aria-live="polite" aria-busy={isLoading}>
+        <div id="hero-search-results" className="relative z-30 mt-3 max-h-[21.5rem] overflow-y-auto overscroll-contain rounded-[1.35rem] border border-gray-100 bg-white p-3 text-left shadow-[0_25px_65px_-25px_rgba(15,23,42,0.32)] sm:p-4" aria-live="polite" aria-busy={isLoading}>
           {isLoading ? (
             <div className="space-y-2" role="status" aria-label="Searching services and companies">
               {[0, 1, 2].map((item) => <div key={item} className="flex animate-pulse items-center gap-3 rounded-xl bg-gray-50 p-3 motion-reduce:animate-none"><span className="size-10 rounded-lg bg-gray-200" /><span className="flex-1 space-y-2"><span className="block h-3 w-1/3 rounded bg-gray-200" /><span className="block h-2.5 w-2/3 rounded bg-gray-200" /></span></div>)}
