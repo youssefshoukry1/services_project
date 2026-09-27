@@ -4,6 +4,12 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./service-page.module.css";
 
+const sortOptions = [
+  { value: "recommended", label: "Recommended", detail: "Original listing order" },
+  { value: "alphabetical", label: "Name A–Z", detail: "Browse alphabetically" },
+  { value: "price", label: "Lowest starting price", detail: "Budget-friendly first" },
+];
+
 function getLowestPrice(company) {
   const prices = company.prices
     .map((item) => Number(item.price.match(/[\d.]+/)?.[0]))
@@ -29,8 +35,29 @@ function Icon({ type }) {
 
 export default function CompanyDirectory({ companies, categoryTitle }) {
   const directoryRef = useRef(null);
+  const sortRef = useRef(null);
+  const sortButtonRef = useRef(null);
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState("recommended");
+  const [sortOpen, setSortOpen] = useState(false);
+
+  useEffect(() => {
+    if (!sortOpen) return;
+    const onPointerDown = (event) => {
+      if (!sortRef.current?.contains(event.target)) setSortOpen(false);
+    };
+    const onKeyDown = (event) => {
+      if (event.key !== "Escape") return;
+      setSortOpen(false);
+      sortButtonRef.current?.focus();
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [sortOpen]);
 
   const visibleCompanies = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -98,7 +125,8 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
           </svg>
           <span className="sr-only">Search companies</span>
           <input
-            type="search"
+            type="text"
+            inputMode="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search by company or area"
@@ -112,17 +140,25 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
           )}
         </label>
 
-        <label className={styles.sortBox}>
-          <span>Sort</span>
-          <select value={sortBy} onChange={(event) => setSortBy(event.target.value)}>
-            <option value="recommended">Recommended</option>
-            <option value="alphabetical">Name A-Z</option>
-            <option value="price">Lowest starting price</option>
-          </select>
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m6 8 4 4 4-4" />
-          </svg>
-        </label>
+        <div ref={sortRef} className={styles.sortWrap}>
+          <button ref={sortButtonRef} type="button" className={styles.sortBox} aria-label={`Sort companies: ${sortOptions.find((option) => option.value === sortBy).label}`} aria-expanded={sortOpen} aria-controls="company-sort-options" onClick={() => setSortOpen((open) => !open)}>
+            <span className={styles.sortLabel}>Sort</span>
+            <span className={styles.sortValue}>{sortOptions.find((option) => option.value === sortBy).label}</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m6 8 4 4 4-4" />
+            </svg>
+          </button>
+          {sortOpen && (
+            <div id="company-sort-options" className={styles.sortMenu}>
+              {sortOptions.map((option) => (
+                <button key={option.value} type="button" className={`${styles.sortOption} ${sortBy === option.value ? styles.sortSelected : ""}`} aria-pressed={sortBy === option.value} onClick={() => { setSortBy(option.value); setSortOpen(false); sortButtonRef.current?.focus(); }}>
+                  <span><strong>{option.label}</strong><small>{option.detail}</small></span>
+                  {sortBy === option.value && <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="m4 10 4 4 8-8" /></svg>}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <p className={styles.resultCount} aria-live="polite">

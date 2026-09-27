@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HeroSearch from "./HeroSearch";
+import BenefitsMarquee from "./BenefitsMarquee";
 
 const headline = "Find trusted help near you.";
 const popularServices = [
@@ -20,8 +21,8 @@ export default function Hero() {
       <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-[30rem] bg-[radial-gradient(circle_at_50%_0%,rgba(0,128,128,0.12),transparent_62%)]" />
       <div aria-hidden="true" className="absolute -right-24 top-44 -z-10 size-64 rounded-full bg-teal-50/70 blur-3xl" />
 
-      <section className="mx-auto flex min-h-[calc(100svh-4.5rem)] max-w-6xl items-center px-4 py-8 sm:px-6 sm:py-16 lg:px-8">
-        <div className="mx-auto w-full max-w-4xl">
+      <section className="mx-auto flex min-h-[calc(100svh-7.25rem)] max-w-6xl flex-col px-4 pb-8 pt-5 sm:min-h-[calc(100svh-4.75rem)] sm:px-6 sm:pb-12 sm:pt-10 lg:px-8">
+        <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center">
           <div className="text-center">
             <div className="hero-rise inline-flex items-center gap-2 rounded-full border border-[#008080]/15 bg-white/80 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#007474] shadow-sm backdrop-blur">
               <span className="size-1.5 rounded-full bg-[#008080]" />
@@ -70,6 +71,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        <BenefitsMarquee />
       </section>
     </main>
   );
