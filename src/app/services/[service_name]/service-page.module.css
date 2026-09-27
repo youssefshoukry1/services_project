@@ -364,6 +364,7 @@
 
 .companyReveal {
   min-width: 0;
+  scroll-margin-top: 7rem;
   opacity: 0;
   filter: blur(7px);
   transform: translateY(1.8rem) scale(0.985);

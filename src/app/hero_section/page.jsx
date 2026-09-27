@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HeroSearch from "./HeroSearch";
 
 const headline = "Find trusted help near you.";
 const popularServices = [
@@ -15,7 +16,7 @@ function ServiceIcon({ type }) {
 
 export default function Hero() {
   return (
-    <main className="relative isolate overflow-hidden bg-white">
+    <main className="relative isolate overflow-x-clip bg-white">
       <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-[30rem] bg-[radial-gradient(circle_at_50%_0%,rgba(0,128,128,0.12),transparent_62%)]" />
       <div aria-hidden="true" className="absolute -right-24 top-44 -z-10 size-64 rounded-full bg-teal-50/70 blur-3xl" />
 
@@ -55,26 +56,7 @@ export default function Hero() {
             </p>
           </div>
 
-          <form role="search" className="hero-rise mx-auto mt-7 max-w-3xl rounded-[1.5rem] border border-gray-200/80 bg-white p-2.5 shadow-[0_20px_60px_-24px_rgba(0,80,80,0.3)] [animation-delay:1.4s] sm:mt-10 sm:rounded-[1.75rem] sm:p-3">
-            <div className="grid gap-2 md:grid-cols-[1fr_1fr_auto]">
-              <label className="flex min-h-14 items-center gap-3 rounded-2xl bg-gray-50 px-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-[#008080]/20">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-5 shrink-0 text-[#008080]" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path strokeLinecap="round" d="m20 20-4-4" /></svg>
-                <span className="sr-only">Service</span>
-                <input name="service" type="search" placeholder="What do you need?" className="min-w-0 flex-1 bg-transparent text-base font-medium text-gray-900 outline-none placeholder:text-gray-400" />
-              </label>
-
-              <label className="flex min-h-14 items-center gap-3 rounded-2xl bg-gray-50 px-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-[#008080]/20">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-5 shrink-0 text-[#008080]" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>
-                <span className="sr-only">Location</span>
-                <input name="location" type="text" placeholder="Your location" className="min-w-0 flex-1 bg-transparent text-base font-medium text-gray-900 outline-none placeholder:text-gray-400" />
-              </label>
-
-              <button type="submit" aria-label="Search services" className="flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#008080] px-7 font-bold text-white shadow-lg shadow-teal-900/15 transition active:scale-[0.98] hover:bg-[#006f6f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008080]">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-5" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path strokeLinecap="round" d="m20 20-4-4" /></svg>
-                Search
-              </button>
-            </div>
-          </form>
+          <HeroSearch />
 
           <div className="hero-rise mt-5 [animation-delay:1.55s] sm:mt-7">
             <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-gray-400">Popular services</p>

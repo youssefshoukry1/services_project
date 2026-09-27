@@ -133,6 +133,7 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
         <div className={styles.companyGrid}>
           {visibleCompanies.map((company, index) => (
             <article
+              id={company.id}
               data-company-card
               className={styles.companyReveal}
               style={{ "--company-delay": `${(index % 2) * 110}ms` }}
