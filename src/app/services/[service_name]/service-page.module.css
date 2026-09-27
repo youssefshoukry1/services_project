@@ -22,6 +22,7 @@
 
 .container {
   width: 100%;
+  min-width: 0;
   max-width: 74rem;
   margin: 0 auto;
   padding: 1.25rem 1rem 4.75rem;
@@ -135,9 +136,9 @@
   max-width: 44rem;
   margin-top: 0.75rem;
   font-size: clamp(2rem, 8vw, 2.25rem);
-  font-weight: 950;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
 }
 
 .copy p {
@@ -212,8 +213,8 @@
 .directoryHeading h2 {
   margin-top: 0.65rem;
   font-size: clamp(1.65rem, 6vw, 1.9rem);
-  font-weight: 950;
-  letter-spacing: -0.045em;
+  font-weight: 800;
+  letter-spacing: -0.035em;
   line-height: 1.05;
 }
 
@@ -226,6 +227,9 @@
 
 .directoryTools {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  min-width: 0;
   gap: 0.65rem;
   margin-top: 1.35rem;
   border: 1px solid #e8ecef;
@@ -259,6 +263,7 @@
 
 .searchBox input {
   min-width: 0;
+  width: 100%;
   flex: 1;
   background: transparent;
   color: #111827;
@@ -344,6 +349,8 @@
 .companyGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  width: 100%;
   gap: 1rem;
   margin-top: 1.5rem;
 }
@@ -359,6 +366,20 @@
   background: #fbfcfc;
   padding: 2rem;
   text-align: center;
+}
+
+@media (max-width: 699px) {
+  .directoryTools { min-width: 0; }
+  .companyGrid {
+    height: min(33rem, 65svh);
+    align-content: start;
+    grid-auto-rows: max-content;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0.15rem 0.15rem 1rem;
+  }
+  .emptyState { height: min(33rem, 65svh); min-height: 0; }
 }
 
 .emptyState > div {
@@ -397,6 +418,7 @@
 
 .companyCard {
   height: 100%;
+  min-width: 0;
   overflow: hidden;
   border: 1px solid #e8ecef;
   border-radius: 1.35rem;

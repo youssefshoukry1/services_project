@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 body {
-  font-family: Inter, Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
 @keyframes hero-letter-in {

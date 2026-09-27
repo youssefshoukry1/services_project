@@ -49,8 +49,8 @@
   margin-top: 1rem;
   color: #030712;
   font-size: clamp(1.65rem, 7vw, 2rem);
-  font-weight: 900;
-  letter-spacing: -0.045em;
+  font-weight: 800;
+  letter-spacing: -0.035em;
   line-height: 1.05;
 }
 

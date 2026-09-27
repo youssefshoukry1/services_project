@@ -98,23 +98,20 @@ export default function HeroSearch() {
   }
 
   return (
-    <div ref={searchRef} className="hero-rise relative z-20 mx-auto mt-7 max-w-3xl [animation-delay:1.4s] sm:mt-10">
-      <form role="search" onSubmit={handleSubmit} className="rounded-[1.5rem] border border-gray-200/80 bg-white p-2.5 shadow-[0_20px_60px_-24px_rgba(0,80,80,0.3)] sm:rounded-[1.75rem] sm:p-3">
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <label className="flex min-h-14 flex-1 items-center gap-3 rounded-2xl bg-gray-50 px-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-[#008080]/20">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-5 shrink-0 text-[#008080]" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path strokeLinecap="round" d="m20 20-4-4" /></svg>
+    <div ref={searchRef} className="hero-rise relative z-20 mx-auto mt-7 w-full min-w-0 max-w-[16rem] [animation-delay:1.4s] sm:mt-10 sm:max-w-3xl">
+      <form role="search" onSubmit={handleSubmit} className="w-full min-w-0 rounded-[1.5rem] border border-gray-200/80 bg-white p-2.5 shadow-[0_20px_60px_-24px_rgba(0,80,80,0.3)] sm:rounded-[1.75rem] sm:p-3">
+        <div>
+          <label className="flex min-h-14 w-full min-w-0 items-center gap-3 rounded-2xl bg-[#008080] px-4 text-white shadow-lg shadow-teal-900/15 transition focus-within:bg-[#006f6f] focus-within:ring-2 focus-within:ring-[#008080]/25 focus-within:ring-offset-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-5 shrink-0" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path strokeLinecap="round" d="m20 20-4-4" /></svg>
             <span className="sr-only">Search companies or services</span>
-            <input ref={inputRef} name="search" type="search" autoComplete="off" value={query} onChange={handleQueryChange} onFocus={() => { if (query.trim()) setIsOpen(true); }} aria-controls="hero-search-results" aria-expanded={showResults} placeholder="Search a service or company" className="min-w-0 flex-1 bg-transparent text-sm font-medium text-gray-900 outline-none placeholder:text-gray-400 sm:text-base" />
+            <input ref={inputRef} name="search" type="text" inputMode="search" autoComplete="off" value={query} onChange={handleQueryChange} onFocus={() => { if (query.trim()) setIsOpen(true); }} aria-controls="hero-search-results" aria-expanded={showResults} placeholder="Service or company" className="min-w-0 flex-1 bg-transparent text-base font-semibold text-white caret-white outline-none placeholder:text-white/75" />
+            {isLoading && <span className="size-5 shrink-0 animate-spin rounded-full border-2 border-white/40 border-t-white motion-reduce:animate-none" role="status" aria-label="Searching" />}
           </label>
-          <button type="submit" className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[#008080] px-7 font-bold text-white shadow-lg shadow-teal-900/15 transition active:scale-[0.98] hover:bg-[#006f6f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008080] sm:min-h-14">
-            {isLoading ? <span className="size-5 animate-spin rounded-full border-2 border-white/40 border-t-white motion-reduce:animate-none" aria-hidden="true" /> : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-5" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path strokeLinecap="round" d="m20 20-4-4" /></svg>}
-            {isLoading ? "Searching" : "Search"}
-          </button>
         </div>
       </form>
 
       {showResults && (
-        <div id="hero-search-results" className="relative z-30 mt-3 max-h-[21.5rem] overflow-y-auto overscroll-contain rounded-[1.35rem] border border-gray-100 bg-white p-3 text-left shadow-[0_25px_65px_-25px_rgba(15,23,42,0.32)] sm:p-4" aria-live="polite" aria-busy={isLoading}>
+        <div id="hero-search-results" className="relative z-30 mt-3 h-[21.5rem] w-full min-w-0 max-w-full overflow-x-hidden overflow-y-auto overscroll-contain rounded-[1.35rem] border border-gray-100 bg-white p-3 text-left shadow-[0_25px_65px_-25px_rgba(15,23,42,0.32)] sm:p-4" aria-live="polite" aria-busy={isLoading}>
           {isLoading ? (
             <div className="space-y-2" role="status" aria-label="Searching services and companies">
               {[0, 1, 2].map((item) => <div key={item} className="flex animate-pulse items-center gap-3 rounded-xl bg-gray-50 p-3 motion-reduce:animate-none"><span className="size-10 rounded-lg bg-gray-200" /><span className="flex-1 space-y-2"><span className="block h-3 w-1/3 rounded bg-gray-200" /><span className="block h-2.5 w-2/3 rounded bg-gray-200" /></span></div>)}
