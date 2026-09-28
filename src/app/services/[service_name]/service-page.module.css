@@ -334,6 +334,17 @@
 .sortOption small { color: #849097; font-size: 0.66rem; }
 .sortOption svg { width: 1rem; height: 1rem; flex: none; color: #008080; }
 
+.locationPickerWrap { position: relative; min-width: 0; }
+.locationPickerButton { display: flex; width: 100%; min-height: 3.2rem; align-items: center; gap: .5rem; border-radius: .95rem; background: #eef8f7; padding: 0 .85rem; color: #007979; font-size: .78rem; font-weight: 850; text-align: left; }
+.locationPickerButton:hover, .locationPickerButton[aria-expanded="true"] { background: #e2f2f0; }
+.locationPickerButton:focus-visible { outline: 2px solid #008080; outline-offset: 2px; }
+.locationPickerButton svg { width: 1rem; height: 1rem; flex: none; }.locationPickerButton span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.locationMenu { position: absolute; top: calc(100% + .5rem); right: 0; z-index: 32; width: min(20rem, calc(100vw - 2rem)); border: 1px solid #dcebea; border-radius: 1rem; background: #fff; padding: .7rem; box-shadow: 0 20px 48px -18px rgba(15,23,42,.35); }
+.locationMenuHeading { display: grid; gap: .15rem; padding: .2rem .25rem .65rem; }.locationMenuHeading strong { color: #17212d; font-size: .82rem; }.locationMenuHeading small { color: #879398; font-size: .67rem; }
+.areaSearch { display: flex; min-height: 2.5rem; align-items: center; border-radius: .7rem; background: #f5f8f8; padding: 0 .7rem; }.areaSearch:focus-within { box-shadow: inset 0 0 0 2px rgba(0,128,128,.18); }.areaSearch input { width: 100%; min-width: 0; background: transparent; color: #17212d; font-size: 1rem; outline: none; }.areaSearch input::placeholder { color: #9ca3af; }
+.areaList { display: grid; max-height: 13rem; gap: .15rem; overflow-y: auto; margin-top: .45rem; overscroll-behavior: contain; }.areaOption { display: flex; min-height: 2.45rem; align-items: center; justify-content: space-between; border-radius: .6rem; padding: 0 .65rem; color: #26343b; font-size: .76rem; font-weight: 700; text-align: left; }.areaOption:hover, .areaOption:focus-visible { background: #edf8f7; outline: none; }.areaOption span { color: #008080; }
+.areaEmpty { padding: .7rem; color: #879398; font-size: .76rem; }.clearArea { width: 100%; min-height: 2.2rem; margin-top: .45rem; border-top: 1px solid #edf0f1; color: #007979; font-size: .72rem; font-weight: 800; }
+
 .searchBox:focus-within,
 .sortBox:focus-visible {
   box-shadow: inset 0 0 0 2px rgba(0, 128, 128, 0.18);
@@ -705,7 +716,7 @@
   .directoryHeading { grid-template-columns: minmax(0, 1fr) auto; }
   .directoryHeading > p { text-align: right; }
   .directoryHeading h2 { font-size: clamp(1.9rem, 5vw, 3.2rem); }
-  .directoryTools { grid-template-columns: minmax(0, 1fr) 14rem; }
+  .directoryTools { grid-template-columns: minmax(0, 1fr) 12rem 10rem; }
   .companyGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2rem; }
   .companyCard { border-radius: 1.65rem; padding: 1.35rem; }
   .companyIdentity h3 { font-size: 1.08rem; }

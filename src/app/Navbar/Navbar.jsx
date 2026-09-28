@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import styles from "./navbar.module.css";
+import NavbarSearch from "./NavbarSearch";
 
 const services = [
   { name: "Painting", detail: "Walls & finishes", href: "/services/painters" },
@@ -67,10 +68,6 @@ export default function Navbar() {
         </Link>
 
         <div className={styles.items}>
-          <Link href="/" className={`${styles.navLink} ${pathname === "/" ? styles.active : ""}`} aria-current={pathname === "/" ? "page" : undefined}>
-            Home
-          </Link>
-
           <div
             ref={servicesRef}
             className={styles.servicesWrap}
@@ -115,11 +112,8 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/#contact" className={styles.navLink}>
-            Contact
-          </Link>
-
         </div>
+        <NavbarSearch isScrolled={isScrolled} />
         <Link href="/add-company" className={styles.cta} aria-label="Add Company - Free">
           <span className={styles.ctaFull}>Add Company - Free</span>
           <span className={styles.ctaCompact}>Add Free</span>

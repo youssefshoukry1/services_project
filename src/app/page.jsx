@@ -1,11 +1,5 @@
-import Hero from "./hero_section/page";
-import CardsServicesSection from "./cards_sevices_section/CardsServicesSection";
+import HomeDirectory from "./HomeDirectory";
 
 export default function Home() {
-  return (
-    <>
-      <Hero />
-      <CardsServicesSection />
-    </>
-  );
+  return <HomeDirectory />;
 }

@@ -6,9 +6,35 @@ import styles from "./service-page.module.css";
 
 const sortOptions = [
   { value: "recommended", label: "Recommended", detail: "Original listing order" },
-  { value: "alphabetical", label: "Name A–Z", detail: "Browse alphabetically" },
+  { value: "nearby", label: "Nearest area", detail: "Approximate area match" },
+  { value: "alphabetical", label: "Name A-Z", detail: "Browse alphabetically" },
   { value: "price", label: "Lowest starting price", detail: "Budget-friendly first" },
 ];
+
+const areaOptions = [
+  { label: "Cairo", area: "Cairo", city: "Cairo" },
+  { label: "Maadi, Cairo", area: "Maadi", city: "Cairo" },
+  { label: "Zamalek, Cairo", area: "Zamalek", city: "Cairo" },
+  { label: "Heliopolis, Cairo", area: "Heliopolis", city: "Cairo" },
+  { label: "Nasr City, Cairo", area: "Nasr City", city: "Cairo" },
+  { label: "New Cairo, Cairo", area: "New Cairo", city: "Cairo" },
+  { label: "Obour City, Cairo", area: "Obour City", city: "Cairo" },
+  { label: "Shoubra, Cairo", area: "Shoubra", city: "Cairo" },
+  { label: "Giza", area: "Giza", city: "Giza" },
+  { label: "Dokki, Giza", area: "Dokki", city: "Giza" },
+  { label: "Mohandeseen, Giza", area: "Mohandeseen", city: "Giza" },
+  { label: "6th of October, Giza", area: "6th of October", city: "Giza" },
+  { label: "Haram, Giza", area: "Haram", city: "Giza" },
+  { label: "Faisal, Giza", area: "Faisal", city: "Giza" },
+  { label: "Sheikh Zayed, Giza", area: "Sheikh Zayed", city: "Giza" },
+];
+
+function areaScore(company, location) {
+  const address = company.address.toLowerCase();
+  if (address.includes(location.area.toLowerCase())) return 2;
+  if (address.includes(location.city.toLowerCase())) return 1;
+  return 0;
+}
 
 function getLowestPrice(company) {
   const prices = company.prices
@@ -37,9 +63,14 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
   const directoryRef = useRef(null);
   const sortRef = useRef(null);
   const sortButtonRef = useRef(null);
+  const locationRef = useRef(null);
+  const locationButtonRef = useRef(null);
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState("recommended");
   const [sortOpen, setSortOpen] = useState(false);
+  const [locationOpen, setLocationOpen] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [areaQuery, setAreaQuery] = useState("");
 
   useEffect(() => {
     if (!sortOpen) return;
@@ -59,6 +90,24 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
     };
   }, [sortOpen]);
 
+  useEffect(() => {
+    if (!locationOpen) return;
+    const onPointerDown = (event) => {
+      if (!locationRef.current?.contains(event.target)) setLocationOpen(false);
+    };
+    const onKeyDown = (event) => {
+      if (event.key !== "Escape") return;
+      setLocationOpen(false);
+      locationButtonRef.current?.focus();
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [locationOpen]);
+
   const visibleCompanies = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
     const matches = companies.filter((company) =>
@@ -75,8 +124,32 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
       return [...matches].sort((first, second) => getLowestPrice(first) - getLowestPrice(second));
     }
 
+    if (sortBy === "nearby" && location) {
+      return [...matches].sort((first, second) => areaScore(second, location) - areaScore(first, location));
+    }
+
     return matches;
-  }, [companies, query, sortBy]);
+  }, [companies, query, sortBy, location]);
+
+  const filteredAreas = areaOptions.filter((item) => item.label.toLowerCase().includes(areaQuery.trim().toLowerCase()));
+
+  function selectSort(value) {
+    setSortOpen(false);
+    if (value === "nearby" && !location) {
+      setLocationOpen(true);
+      return;
+    }
+    setSortBy(value);
+    sortButtonRef.current?.focus();
+  }
+
+  function selectLocation(value) {
+    setLocation(value);
+    setLocationOpen(false);
+    setAreaQuery("");
+    setSortBy("nearby");
+    locationButtonRef.current?.focus();
+  }
 
   useEffect(() => {
     const directory = directoryRef.current;
@@ -151,7 +224,7 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
           {sortOpen && (
             <div id="company-sort-options" className={styles.sortMenu}>
               {sortOptions.map((option) => (
-                <button key={option.value} type="button" className={`${styles.sortOption} ${sortBy === option.value ? styles.sortSelected : ""}`} aria-pressed={sortBy === option.value} onClick={() => { setSortBy(option.value); setSortOpen(false); sortButtonRef.current?.focus(); }}>
+                <button key={option.value} type="button" className={`${styles.sortOption} ${sortBy === option.value ? styles.sortSelected : ""}`} aria-pressed={sortBy === option.value} onClick={() => selectSort(option.value)}>
                   <span><strong>{option.label}</strong><small>{option.detail}</small></span>
                   {sortBy === option.value && <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="m4 10 4 4 8-8" /></svg>}
                 </button>
@@ -159,10 +232,30 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
             </div>
           )}
         </div>
+
+        <div ref={locationRef} className={styles.locationPickerWrap}>
+          <button ref={locationButtonRef} type="button" className={styles.locationPickerButton} aria-expanded={locationOpen} aria-controls="company-area-options" onClick={() => { setLocationOpen((open) => !open); setSortOpen(false); }}>
+            <Icon type="location" />
+            <span>{location?.label ?? "Choose area"}</span>
+          </button>
+          {locationOpen && (
+            <div id="company-area-options" className={styles.locationMenu}>
+              <div className={styles.locationMenuHeading}><strong>Choose your area</strong><small>Company proximity is approximate.</small></div>
+              <label className={styles.areaSearch}>
+                <span className="sr-only">Find an area</span>
+                <input type="text" value={areaQuery} onChange={(event) => setAreaQuery(event.target.value)} placeholder="Search Cairo or Giza areas" autoFocus />
+              </label>
+              <div className={styles.areaList}>
+                {filteredAreas.length ? filteredAreas.map((item) => <button key={item.label} type="button" className={styles.areaOption} onClick={() => selectLocation(item)}>{item.label}{location?.label === item.label && <span aria-hidden="true">✓</span>}</button>) : <p className={styles.areaEmpty}>No areas found</p>}
+              </div>
+              {location && <button type="button" className={styles.clearArea} onClick={() => { setLocation(null); setLocationOpen(false); setSortBy("recommended"); }}>Clear area</button>}
+            </div>
+          )}
+        </div>
       </div>
 
       <p className={styles.resultCount} aria-live="polite">
-        {visibleCompanies.length} {visibleCompanies.length === 1 ? "company" : "companies"} found
+        {visibleCompanies.length} {visibleCompanies.length === 1 ? "company" : "companies"} found{sortBy === "nearby" && location ? ` · nearest area matches for ${location.label} first` : ""}
       </p>
 
       {visibleCompanies.length > 0 ? (
