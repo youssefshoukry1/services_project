@@ -12,7 +12,7 @@
 .filter { display: inline-flex; min-height: 2.5rem; flex: none; align-items: center; gap: .5rem; border: 1px solid #ddebea; border-radius: 999px; background: #f6fbfa; padding: 0 .75rem; color: #26383e; font: inherit; font-size: .74rem; font-weight: 800; white-space: nowrap; cursor: pointer; transition: border-color 180ms ease, background 180ms ease; }
 .filter:hover, .filter:focus-visible { border-color: #9bd4d0; background: #ebf7f6; outline: 2px solid #008080; outline-offset: 2px; }
 .filter.active { border-color: #008080; background: #e5f5f3; color: #006969; }
-.dot { width: .4rem; height: .4rem; border-radius: 50%; background: #008080; }
+.filterIcon { width: 1.05rem; height: 1.05rem; flex: none; color: #008080; }
 .filterCount { color: #668381; font-size: .65rem; }
 .results { min-width: 0; }
 .resultsHeading { margin-bottom: 1rem; }
