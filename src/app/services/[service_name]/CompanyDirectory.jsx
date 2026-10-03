@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./service-page.module.css";
 
@@ -269,6 +270,7 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
               key={company.id}
             >
               <div className={styles.companyCard}>
+              <Link className={styles.cardDetailLink} href={`/services/${company.categoryId}/${company.id}`} aria-label={`View all details for ${company.name}`} />
               <header className={styles.companyHeader}>
                 <div className={styles.companyLogo}>
                   <Image

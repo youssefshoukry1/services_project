@@ -428,6 +428,7 @@
 }
 
 .companyCard {
+  position: relative;
   height: 100%;
   min-width: 0;
   overflow: hidden;
@@ -438,6 +439,9 @@
   box-shadow: 0 22px 48px -42px rgba(15, 23, 42, 0.55);
   transition: border-color 350ms ease, box-shadow 450ms ease, transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+.cardDetailLink { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.cardDetailLink:focus-visible { outline: 3px solid #008080; outline-offset: -3px; }
+.companyActions { position: relative; z-index: 2; }
 
 .companyHeader {
   display: flex;

@@ -45,7 +45,7 @@ export default function HomeDirectory() {
             </header>
             <div className={styles.grid}>
               {companies.map((company) => (
-                <Link key={company.id} href={`/services/${company.categoryId}#${company.id}`} className={styles.card}>
+                <Link key={company.id} href={`/services/${company.categoryId}/${company.id}`} className={styles.card}>
                   <div className={styles.art}><Image src={company.logo} alt="" fill sizes="(max-width: 599px) 90vw, (max-width: 999px) 42vw, 260px" className={styles.artLogo} /></div>
                   <div className={styles.cardBody}>
                     <span className={styles.category}>{labels[company.categoryId] ?? company.categoryId}</span>
