@@ -5,19 +5,16 @@ import styles from "./services.module.css";
 
 const presentation = {
   painters: {
-    label: "Malerarbeiten",
     description: "Innen- und Außenanstriche, dekorative Oberflächen und Spezialbeschichtungen.",
     image: "/images/services/painting-service.webp",
     alt: "Farbroller, Farbeimer und Pinsel",
   },
   cleaning: {
-    label: "Reinigung",
     description: "Reinigung von Wohnungen, Büros, Fenstern und Gewerbeflächen.",
     image: "/images/services/cleaning-service.webp",
     alt: "Professionelle Reinigungsgeräte",
   },
   auto_repair: {
-    label: "Autoreparatur",
     description: "Wartung, Diagnose, Reifen, Getriebe und Karosserie.",
     image: "/images/services/car-repair-service.webp",
     alt: "Auto und professionelle Werkzeuge",
@@ -43,7 +40,6 @@ export default function DienstleistungenPage() {
         </nav>
 
         <header className={styles.hero}>
-          <span className={styles.eyebrow}>Finden Sie den passenden Profi</span>
           <h1>Wobei können wir Ihnen helfen?</h1>
           <p>Entdecken Sie lokale Dienstleistungen, vergleichen Sie Preise und kontaktieren Sie Unternehmen direkt.</p>
         </header>
@@ -51,10 +47,6 @@ export default function DienstleistungenPage() {
         <section className={styles.grid} aria-label="Dienstleistungskategorien">
           {mockData.categories.map((category, index) => {
             const item = presentation[category.id];
-            const companyCount = mockData.companies.filter(
-              (company) => company.categoryId === category.id,
-            ).length;
-
             return (
               <article className={styles.card} style={{ "--delay": `${index * 110}ms` }} key={category.id}>
                 <Link href={`/services/${category.id}`} aria-label={`Entdecken: ${category.title}`}>
@@ -66,10 +58,8 @@ export default function DienstleistungenPage() {
                       sizes="(max-width: 699px) 92vw, (max-width: 1049px) 46vw, 360px"
                       className={styles.image}
                     />
-                    <div className={styles.count}>{companyCount} Unternehmen</div>
                   </div>
                   <div className={styles.content}>
-                    <span>{item.label}</span>
                     <h2>{category.title}</h2>
                     <p>{item.description}</p>
                     <div className={styles.action}>

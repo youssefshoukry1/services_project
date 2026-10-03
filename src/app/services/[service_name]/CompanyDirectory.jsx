@@ -47,7 +47,7 @@ function Icon({ type }) {
   );
 }
 
-export default function CompanyDirectory({ companies, categoryTitle }) {
+export default function CompanyDirectory({ companies }) {
   const directoryRef = useRef(null);
   const sortRef = useRef(null);
   const sortButtonRef = useRef(null);
@@ -170,12 +170,8 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
     <section ref={directoryRef} id="companies" className={styles.directory} aria-labelledby="directory-heading">
       <header className={styles.directoryHeading}>
         <div>
-          <span>In Ihrer Nähe</span>
           <h2 id="directory-heading">Wählen Sie einen Fachbetrieb.</h2>
         </div>
-        <p>
-          {companies.length} Unternehmen bieten {categoryTitle.toLowerCase()} an.
-        </p>
       </header>
 
       <div className={styles.directoryTools}>
@@ -242,10 +238,6 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
         </div>
       </div>
 
-      <p className={styles.resultCount} aria-live="polite">
-        {visibleCompanies.length} {visibleCompanies.length === 1 ? "Unternehmen" : "Unternehmen"} gefunden{sortBy === "nearby" && location ? ` · nächste Treffer für ${location.label} first` : ""}
-      </p>
-
       {visibleCompanies.length > 0 ? (
         <div className={styles.companyGrid}>
           {visibleCompanies.map((company, index) => (
@@ -269,10 +261,6 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
                   />
                 </div>
                 <div className={styles.companyIdentity}>
-                  <div className={styles.companyStatus}>
-                    <span aria-hidden="true" />
-                    Eingetragener Fachbetrieb
-                  </div>
                   <h3>{company.name}</h3>
                 </div>
               </header>
@@ -287,7 +275,6 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
               <div className={styles.pricePanel}>
                 <div className={styles.priceHeading}>
                   <span>Leistungen &amp; Preise</span>
-                  <span>{company.prices.length} Angebote</span>
                 </div>
                 <ul>
                   {company.prices.map((item) => (

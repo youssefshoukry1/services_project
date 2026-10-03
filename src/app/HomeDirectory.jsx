@@ -34,7 +34,6 @@ export default function HomeDirectory() {
                 <button key={filter.id} type="button" className={`${styles.filter} ${category === filter.id ? styles.active : ""}`} aria-pressed={category === filter.id} onClick={() => setCategory(filter.id)}>
                   <ServiceIcon type={filter.id} className={styles.filterIcon} />
                   <span>{filter.title}</span>
-                  <span className={styles.filterCount}>{filter.id === "all" ? mockData.companies.length : mockData.companies.filter((company) => company.categoryId === filter.id).length}</span>
                 </button>
               ))}
             </nav>
@@ -48,7 +47,7 @@ export default function HomeDirectory() {
                 <Link key={company.id} href={`/services/${company.categoryId}/${company.id}`} className={styles.card}>
                   <div className={styles.art}><Image src={company.logo} alt="" fill sizes="(max-width: 599px) 90vw, (max-width: 999px) 42vw, 260px" className={styles.artLogo} /></div>
                   <div className={styles.cardBody}>
-                    <span className={styles.category}>{labels[company.categoryId] ?? company.categoryId}</span>
+                    {category === "all" && <span className={styles.category}>{labels[company.categoryId] ?? company.categoryId}</span>}
                     <h3>{company.name}</h3>
                     <span className={styles.location}>{company.address}</span>
                     <p>{company.shortDesc}</p>

@@ -77,11 +77,6 @@ export default async function ServicePage({ params }) {
 
   if (!service) notFound();
 
-  const listedDienstleistungen = service.companies.reduce(
-    (total, company) => total + company.prices.length,
-    0,
-  );
-
   return (
     <main className={styles.page}>
       <div className={styles.ambientGlow} aria-hidden="true" />
@@ -102,25 +97,21 @@ export default async function ServicePage({ params }) {
 
         <CompanyDirectory
           companies={service.companies}
-          categoryTitle={service.category.title}
         />
 
-        <section className={styles.valueSection} aria-labelledby="category-benefits">
+        <section className={styles.valueSection} aria-label="Vorteile der Dienstleistungssuche">
 
 
           <div className={styles.features}>
             <article>
-              <span className={styles.featureNumber}>01</span>
               <h3>Angebote vor Ort</h3>
               <p>Vergleichen Sie die eingetragenen Betriebe dieser Kategorie.</p>
             </article>
             <article>
-              <span className={styles.featureNumber}>02</span>
               <h3>Übersichtliche Preise</h3>
               <p>Prüfen Sie Leistungen und Einstiegspreise vor der Kontaktaufnahme.</p>
             </article>
             <article>
-              <span className={styles.featureNumber}>03</span>
               <h3>Direkter Kontakt</h3>
               <p>Kontaktieren Sie Unternehmen über die angegebenen Kontaktdaten.</p>
             </article>

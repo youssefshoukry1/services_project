@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { mockData } from "../../../../../mockData";
+import RelatedCompanies from "./RelatedCompanies";
 import styles from "./company-detail.module.css";
 
 function getListing(serviceName, companyId) {
@@ -26,6 +27,14 @@ export default async function CompanyDetailPage({ params }) {
   const listing = getListing(serviceName, companyId);
   if (!listing) notFound();
   const { category, company } = listing;
+  const city = company.address.split(", ").at(-1)?.replace(/^\d{5}\s+/, "");
+  const relatedCompanies = mockData.companies
+    .filter((item) => item.categoryId === category.id && item.id !== company.id)
+    .sort((first, second) => {
+      const firstIsLocal = first.address.endsWith(city);
+      const secondIsLocal = second.address.endsWith(city);
+      return Number(secondIsLocal) - Number(firstIsLocal);
+    });
 
   return (
     <main className={styles.page}>
@@ -46,7 +55,6 @@ export default async function CompanyDetailPage({ params }) {
               <div className={styles.heroContent}>
                 <div className={styles.logo}><Image src={company.logo} alt={`${company.name} Logo`} fill sizes="112px" className={styles.logoImage} /></div>
                 <div className={styles.heroText}>
-                  <span className={styles.category}>{category.title}</span>
                   <h1>{company.name}</h1>
                   <p className={styles.address}>{company.address}</p>
                   <p className={styles.summary}>{company.shortDesc}</p>
@@ -57,7 +65,6 @@ export default async function CompanyDetailPage({ params }) {
             <section className={styles.section} aria-labelledby="services-heading">
               <div className={styles.sectionTitle}>
                 <h2 id="services-heading">Leistungen &amp; angegebene Preise</h2>
-                <span>{company.prices.length} {company.prices.length === 1 ? "Leistung" : "Leistungen"}</span>
               </div>
               <ul className={styles.priceList}>
                 {company.prices.map((item) => (
@@ -84,6 +91,12 @@ export default async function CompanyDetailPage({ params }) {
             </dl>
           </aside>
         </div>
+        {relatedCompanies.length > 0 && (
+          <section className={styles.related} aria-labelledby="related-heading">
+            <h2 id="related-heading">Ähnliche Angebote</h2>
+            <RelatedCompanies companies={relatedCompanies} categoryId={category.id} />
+          </section>
+        )}
         <Link className={styles.backLink} href={`/services/${category.id}`}>← Weitere Unternehmen für {category.title.toLowerCase()} ansehen</Link>
       </div>
     </main>
