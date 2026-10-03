@@ -72,7 +72,6 @@ export default async function CompanyDetailPage({ params }) {
           </div>
 
           <aside className={styles.contact} aria-labelledby="contact-heading">
-            <span className={styles.contactEyebrow}>Kontakt aufnehmen</span>
             <h2 id="contact-heading">{company.name} kontaktieren</h2>
             <p>Besprechen Sie Ihr Vorhaben und fordern Sie direkt ein Angebot an.</p>
             <a className={styles.primaryAction} href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone} anrufen</a>

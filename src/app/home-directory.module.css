@@ -6,6 +6,7 @@
 .intro p { margin-top: .55rem; color: #667085; font-size: .82rem; line-height: 1.5; }
 .layout { display: grid; min-width: 0; gap: 1.3rem; }
 .sidebar { min-width: 0; }
+@media (max-width: 699px) { .sidebar { display: none; } }
 .sidebarHeading { display: none; }
 .serviceNav { display: flex; gap: .5rem; overflow-x: auto; padding: .1rem .05rem .5rem; scrollbar-width: none; }
 .serviceNav::-webkit-scrollbar { display: none; }

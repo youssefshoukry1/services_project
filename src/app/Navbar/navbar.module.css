@@ -15,7 +15,7 @@
 .dropdownHeading { padding: 8px 10px; color: #839194; font-size: 10px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
 .serviceItem { display: flex; min-height: 58px; align-items: center; gap: 10px; border-radius: 11px; padding: 8px 10px; }.serviceItem:hover { background: #eff8f7; }
 .serviceItem > span:nth-child(2) { display: grid; flex: 1; gap: 2px; }.serviceItem strong { color: #111827; font-size: 13px; }.serviceItem small { color: #8b969b; font-size: 11px; }.serviceItem svg { width: 17px; height: 17px; color: #008080; }
-.serviceDot { width: 9px; height: 9px; flex: none; border-radius: 50%; background: #008080; box-shadow: 0 0 0 5px #e6f5f4; }
+.serviceItem .serviceIcon { width: 19px; height: 19px; flex: none; color: #008080; }
 .viewAll { display: flex; min-height: 38px; align-items: center; justify-content: center; margin-top: 4px; border-radius: 9px; background: #eff8f7; color: #007979; font-size: 11px; font-weight: 850; }
 .shell.scrolled { border-color: transparent; background: transparent; pointer-events: none; }
 .scrolled .nav { grid-template-columns: 0 1fr 1fr auto; grid-template-rows: 46px; width: min(100% - 16px, 420px); margin-top: 8px; border: 1px solid #d8e9e8; border-radius: 16px; background: #fff; padding: 4px 6px; box-shadow: 0 13px 35px rgba(17,24,39,.16); pointer-events: auto; }

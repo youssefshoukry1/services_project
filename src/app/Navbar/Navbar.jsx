@@ -5,11 +5,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import styles from "./navbar.module.css";
 import NavbarSearch from "./NavbarSearch";
+import ServiceIcon from "../ServiceIcon";
 
 const services = [
-  { name: "Malerarbeiten", detail: "Wände & Oberflächen", href: "/services/painters" },
-  { name: "Reinigung", detail: "Zuhause & Büro", href: "/services/cleaning" },
-  { name: "Autoreparatur", detail: "Service für Ihr Auto", href: "/services/auto_repair" },
+  { name: "Malerarbeiten", detail: "Wände & Oberflächen", href: "/services/painters", icon: "painters" },
+  { name: "Reinigung", detail: "Zuhause & Büro", href: "/services/cleaning", icon: "cleaning" },
+  { name: "Autoreparatur", detail: "Service für Ihr Auto", href: "/services/auto_repair", icon: "auto_repair" },
 ];
 
 function Chevron() {
@@ -95,7 +96,7 @@ export default function Navbar() {
                 <div className={styles.dropdownHeading}>Dienstleistungen entdecken</div>
                 {services.map((service) => (
                   <Link key={service.href} href={service.href} onClick={() => setIsDienstleistungenOpen(false)} className={styles.serviceItem}>
-                    <span className={styles.serviceDot} aria-hidden="true" />
+                    <ServiceIcon type={service.icon} className={styles.serviceIcon} />
                     <span>
                       <strong>{service.name}</strong>
                       <small>{service.detail}</small>
