@@ -1,12 +1,12 @@
 import styles from "./benefits-marquee.module.css";
 
 const benefits = [
-  { title: "Find help fast", icon: "spark" },
-  { title: "Professional companies", icon: "badge" },
-  { title: "Local services", icon: "pin" },
-  { title: "Clear service pricing", icon: "price" },
-  { title: "Contact directly", icon: "phone" },
-  { title: "Free to browse", icon: "heart" },
+  { title: "Schnell Hilfe finden", icon: "spark" },
+  { title: "Professionelle Betriebe", icon: "badge" },
+  { title: "Lokale Dienstleistungen", icon: "pin" },
+  { title: "Übersichtliche Preise", icon: "price" },
+  { title: "Direkt Kontakt aufnehmen", icon: "phone" },
+  { title: "Kostenlos suchen", icon: "heart" },
 ];
 
 function BenefitIcon({ type }) {
@@ -24,7 +24,7 @@ function BenefitIcon({ type }) {
 
 export default function BenefitsMarquee() {
   return (
-    <div className={styles.wrap} aria-label="Why use ServiceHub">
+    <div className={styles.wrap} aria-label="Vorteile von ServiceHub">
       <div className={styles.viewport}>
         <div className={styles.track}>
           {[0, 1].map((copy) => (

@@ -7,9 +7,9 @@ import styles from "./navbar.module.css";
 import NavbarSearch from "./NavbarSearch";
 
 const services = [
-  { name: "Painting", detail: "Walls & finishes", href: "/services/painters" },
-  { name: "Cleaning", detail: "Home & workspace", href: "/services/cleaning" },
-  { name: "Auto Repair", detail: "Care for your car", href: "/services/auto_repair" },
+  { name: "Malerarbeiten", detail: "Wände & Oberflächen", href: "/services/painters" },
+  { name: "Reinigung", detail: "Zuhause & Büro", href: "/services/cleaning" },
+  { name: "Autoreparatur", detail: "Service für Ihr Auto", href: "/services/auto_repair" },
 ];
 
 function Chevron() {
@@ -23,7 +23,7 @@ function Chevron() {
 export default function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isDienstleistungenOpen, setIsDienstleistungenOpen] = useState(false);
   const servicesRef = useRef(null);
   const servicesButtonRef = useRef(null);
 
@@ -35,18 +35,18 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setIsServicesOpen(false);
+    setIsDienstleistungenOpen(false);
   }, [pathname]);
 
   useEffect(() => {
-    if (!isServicesOpen) return;
+    if (!isDienstleistungenOpen) return;
 
     const closeOnOutsidePress = (event) => {
-      if (!servicesRef.current?.contains(event.target)) setIsServicesOpen(false);
+      if (!servicesRef.current?.contains(event.target)) setIsDienstleistungenOpen(false);
     };
     const closeOnEscape = (event) => {
       if (event.key !== "Escape") return;
-      setIsServicesOpen(false);
+      setIsDienstleistungenOpen(false);
       servicesButtonRef.current?.focus();
     };
 
@@ -56,14 +56,14 @@ export default function Navbar() {
       document.removeEventListener("pointerdown", closeOnOutsidePress);
       document.removeEventListener("keydown", closeOnEscape);
     };
-  }, [isServicesOpen]);
+  }, [isDienstleistungenOpen]);
 
   const servicesActive = pathname.startsWith("/services");
 
   return (
     <header className={`${styles.shell} ${isScrolled ? styles.scrolled : ""}`}>
-      <nav aria-label="Main navigation" className={styles.nav}>
-        <Link href="/" className={styles.logo} aria-label="ServiceHub home">
+      <nav aria-label="Hauptnavigation" className={styles.nav}>
+        <Link href="/" className={styles.logo} aria-label="ServiceHub Startseite">
           Service<span>Hub</span>
         </Link>
 
@@ -72,29 +72,29 @@ export default function Navbar() {
             ref={servicesRef}
             className={styles.servicesWrap}
             onMouseEnter={() => {
-              if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setIsServicesOpen(true);
+              if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setIsDienstleistungenOpen(true);
             }}
             onMouseLeave={() => {
-              if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setIsServicesOpen(false);
+              if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setIsDienstleistungenOpen(false);
             }}
           >
             <button
               ref={servicesButtonRef}
               type="button"
               className={`${styles.navLink} ${styles.servicesButton} ${servicesActive ? styles.active : ""}`}
-              aria-expanded={isServicesOpen}
+              aria-expanded={isDienstleistungenOpen}
               aria-controls="navbar-services-menu"
-              onClick={() => setIsServicesOpen((open) => !open)}
+              onClick={() => setIsDienstleistungenOpen((open) => !open)}
             >
-              Services
+              Leistungen
               <Chevron />
             </button>
 
-            {isServicesOpen && (
+            {isDienstleistungenOpen && (
               <div id="navbar-services-menu" className={styles.dropdown}>
-                <div className={styles.dropdownHeading}>Explore services</div>
+                <div className={styles.dropdownHeading}>Dienstleistungen entdecken</div>
                 {services.map((service) => (
-                  <Link key={service.href} href={service.href} onClick={() => setIsServicesOpen(false)} className={styles.serviceItem}>
+                  <Link key={service.href} href={service.href} onClick={() => setIsDienstleistungenOpen(false)} className={styles.serviceItem}>
                     <span className={styles.serviceDot} aria-hidden="true" />
                     <span>
                       <strong>{service.name}</strong>
@@ -105,8 +105,8 @@ export default function Navbar() {
                     </svg>
                   </Link>
                 ))}
-                <Link href="/services" onClick={() => setIsServicesOpen(false)} className={styles.viewAll}>
-                  View all services
+                <Link href="/services" onClick={() => setIsDienstleistungenOpen(false)} className={styles.viewAll}>
+                  Alle Dienstleistungen ansehen
                 </Link>
               </div>
             )}
@@ -114,9 +114,9 @@ export default function Navbar() {
 
         </div>
         <NavbarSearch isScrolled={isScrolled} />
-        <Link href="/add-company" className={styles.cta} aria-label="Add Company - Free">
-          <span className={styles.ctaFull}>Add Company - Free</span>
-          <span className={styles.ctaCompact}>Add Free</span>
+        <Link href="/add-company" className={styles.cta} aria-label="Unternehmen kostenlos eintragen">
+          <span className={styles.ctaFull}>Unternehmen kostenlos eintragen</span>
+          <span className={styles.ctaCompact}>Gratis eintragen</span>
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

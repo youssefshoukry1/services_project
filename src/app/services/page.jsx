@@ -5,50 +5,50 @@ import styles from "./services.module.css";
 
 const presentation = {
   painters: {
-    label: "Painting",
-    description: "Interior, exterior, decorative finishes, and specialist coatings.",
+    label: "Malerarbeiten",
+    description: "Innen- und Außenanstriche, dekorative Oberflächen und Spezialbeschichtungen.",
     image: "/images/services/painting-service.webp",
-    alt: "Paint roller, paint can, and brush",
+    alt: "Farbroller, Farbeimer und Pinsel",
   },
   cleaning: {
-    label: "Cleaning",
-    description: "Home, office, glass, eco-friendly, and industrial cleaning.",
+    label: "Reinigung",
+    description: "Reinigung von Wohnungen, Büros, Fenstern und Gewerbeflächen.",
     image: "/images/services/cleaning-service.webp",
-    alt: "Professional cleaning tools",
+    alt: "Professionelle Reinigungsgeräte",
   },
   auto_repair: {
-    label: "Auto repair",
-    description: "Maintenance, diagnostics, tires, transmissions, and bodywork.",
+    label: "Autoreparatur",
+    description: "Wartung, Diagnose, Reifen, Getriebe und Karosserie.",
     image: "/images/services/car-repair-service.webp",
-    alt: "Car and professional repair tools",
+    alt: "Auto und professionelle Werkzeuge",
   },
 };
 
 export const metadata = {
-  title: "Browse Services | ServiceHub",
-  description: "Browse trusted local painting, cleaning, and auto repair professionals.",
+  title: "Dienstleistungen entdecken | ServiceHub",
+  description: "Entdecken Sie lokale Fachbetriebe für Malerarbeiten, Reinigung und Autoreparatur.",
 };
 
-export default function ServicesPage() {
+export default function DienstleistungenPage() {
   return (
     <main className={styles.page}>
       <div className={styles.glow} aria-hidden="true" />
       <div className={styles.container}>
-        <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-          <Link href="/">Home</Link>
+        <nav className={styles.breadcrumb} aria-label="Brotkrumennavigation">
+          <Link href="/">Startseite</Link>
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <path d="m8 5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span aria-current="page">Services</span>
+          <span aria-current="page">Dienstleistungen</span>
         </nav>
 
         <header className={styles.hero}>
-          <span className={styles.eyebrow}>Find the right professional</span>
-          <h1>What can we help with?</h1>
-          <p>Explore local services, compare clear pricing, and contact companies directly.</p>
+          <span className={styles.eyebrow}>Finden Sie den passenden Profi</span>
+          <h1>Wobei können wir Ihnen helfen?</h1>
+          <p>Entdecken Sie lokale Dienstleistungen, vergleichen Sie Preise und kontaktieren Sie Unternehmen direkt.</p>
         </header>
 
-        <section className={styles.grid} aria-label="Service categories">
+        <section className={styles.grid} aria-label="Dienstleistungskategorien">
           {mockData.categories.map((category, index) => {
             const item = presentation[category.id];
             const companyCount = mockData.companies.filter(
@@ -57,7 +57,7 @@ export default function ServicesPage() {
 
             return (
               <article className={styles.card} style={{ "--delay": `${index * 110}ms` }} key={category.id}>
-                <Link href={`/services/${category.id}`} aria-label={`Browse ${category.title}`}>
+                <Link href={`/services/${category.id}`} aria-label={`Entdecken: ${category.title}`}>
                   <div className={styles.imageWrap}>
                     <Image
                       src={item.image}
@@ -66,14 +66,14 @@ export default function ServicesPage() {
                       sizes="(max-width: 699px) 92vw, (max-width: 1049px) 46vw, 360px"
                       className={styles.image}
                     />
-                    <div className={styles.count}>{companyCount} companies</div>
+                    <div className={styles.count}>{companyCount} Unternehmen</div>
                   </div>
                   <div className={styles.content}>
                     <span>{item.label}</span>
                     <h2>{category.title}</h2>
                     <p>{item.description}</p>
                     <div className={styles.action}>
-                      Explore service
+                      Dienstleistung ansehen
                       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
                         <path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>

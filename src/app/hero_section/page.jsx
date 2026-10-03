@@ -1,11 +1,11 @@
 import Link from "next/link";
 import BenefitsMarquee from "./BenefitsMarquee";
 
-const headline = "Find trusted help near you.";
+const headline = "Finden Sie zuverlässige Hilfe in Ihrer Nähe.";
 const popularServices = [
-  { label: "Painters", icon: "brush", href: "/services/painters" },
-  { label: "Cleaning", icon: "sparkles", href: "/services/cleaning" },
-  { label: "Car repair", icon: "car", href: "/services/auto_repair" },
+  { label: "Malerbetriebe", icon: "brush", href: "/services/painters" },
+  { label: "Reinigung", icon: "sparkles", href: "/services/cleaning" },
+  { label: "Autoreparatur", icon: "car", href: "/services/auto_repair" },
 ];
 
 function ServiceIcon({ type }) {
@@ -25,7 +25,7 @@ export default function Hero() {
           <div className="text-center">
             <div className="hero-rise inline-flex items-center gap-2 rounded-full border border-[#008080]/15 bg-white/80 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#007474] shadow-sm backdrop-blur">
               <span className="size-1.5 rounded-full bg-[#008080]" />
-              Local. Trusted. Fast.
+              Lokal. Zuverlässig. Schnell.
             </div>
 
             <h1 aria-label={headline} className="mx-auto mt-5 max-w-3xl text-[2rem] font-extrabold leading-[1.12] tracking-[-0.035em] text-gray-950 sm:text-6xl lg:text-7xl">
@@ -52,12 +52,12 @@ export default function Hero() {
             </h1>
 
             <p className="hero-rise mx-auto mt-4 max-w-md text-sm leading-6 text-gray-500 [animation-delay:1.25s] sm:text-base">
-              Search the best-rated local professionals in seconds.
+              Finden Sie lokale Fachbetriebe in wenigen Sekunden.
             </p>
           </div>
 
           <div className="hero-rise mt-7 [animation-delay:1.4s] sm:mt-10">
-            <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-gray-400">Popular services</p>
+            <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-gray-400">Beliebte Dienstleistungen</p>
             <div className="flex flex-wrap justify-center gap-2">
               {popularServices.map((service) => (
                 <Link key={service.label} href={service.href} className="group inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3.5 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:-translate-y-0.5 hover:border-[#008080]/30 hover:text-[#008080] hover:shadow-md">

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { mockData } from "../../mockData";
 import styles from "./home-directory.module.css";
 
-const labels = { painters: "Painting", cleaning: "Cleaning", auto_repair: "Auto repair" };
+const labels = { painters: "Malerarbeiten", cleaning: "Reinigung", auto_repair: "Autoreparatur" };
 
 function ServiceIcon({ type }) {
   const paths = {
@@ -25,20 +25,20 @@ const mixedCompanies = Array.from(
 export default function HomeDirectory() {
   const [category, setCategory] = useState("all");
   const companies = category === "all" ? mixedCompanies : mockData.companies.filter((company) => company.categoryId === category);
-  const filters = [{ id: "all", title: "All services" }, ...mockData.categories.map((item) => ({ id: item.id, title: labels[item.id] ?? item.title }))];
+  const filters = [{ id: "all", title: "Alle Dienstleistungen" }, ...mockData.categories.map((item) => ({ id: item.id, title: labels[item.id] ?? item.title }))];
 
   return (
     <main className={styles.page}>
       <div className={styles.container}>
         <header className={styles.intro}>
-          <span className={styles.eyebrow}>Explore ServiceHub</span>
-          <h1>Find the right local professional.</h1>
-          <p>Browse services and connect directly with companies.</p>
+          <span className={styles.eyebrow}>ServiceHub entdecken</span>
+          <h1>Finden Sie den passenden Profi vor Ort.</h1>
+          <p>Entdecken Sie Dienstleistungen und kontaktieren Sie Unternehmen direkt.</p>
         </header>
         <div className={styles.layout}>
-          <aside className={styles.sidebar} aria-label="Service filters">
-            <div className={styles.sidebarHeading}>Services</div>
-            <nav className={styles.serviceNav} aria-label="Filter by service">
+          <aside className={styles.sidebar} aria-label="Dienstleistungsfilter">
+            <div className={styles.sidebarHeading}>Dienstleistungen</div>
+            <nav className={styles.serviceNav} aria-label="Nach Dienstleistung filtern">
               {filters.map((filter) => (
                 <button key={filter.id} type="button" className={`${styles.filter} ${category === filter.id ? styles.active : ""}`} aria-pressed={category === filter.id} onClick={() => setCategory(filter.id)}>
                   <ServiceIcon type={filter.id} />
@@ -50,7 +50,7 @@ export default function HomeDirectory() {
           </aside>
           <section className={styles.results} aria-labelledby="results-heading">
             <header className={styles.resultsHeading}>
-              <span className={styles.resultCount} aria-live="polite">{companies.length} {companies.length === 1 ? "company" : "companies"}</span>
+              <span className={styles.resultCount} aria-live="polite">{companies.length} {companies.length === 1 ? "Unternehmen" : "Unternehmen"}</span>
               <h2 id="results-heading">{filters.find((filter) => filter.id === category)?.title}</h2>
             </header>
             <div className={styles.grid}>
@@ -62,7 +62,7 @@ export default function HomeDirectory() {
                     <h3>{company.name}</h3>
                     <span className={styles.location}>{company.address}</span>
                     <p>{company.shortDesc}</p>
-                    <span className={styles.cardFoot}>Explore company <span aria-hidden="true">↗</span></span>
+                    <span className={styles.cardFoot}>Unternehmen ansehen <span aria-hidden="true">↗</span></span>
                   </div>
                 </Link>
               ))}

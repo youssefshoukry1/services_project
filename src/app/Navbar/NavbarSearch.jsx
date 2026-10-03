@@ -6,41 +6,42 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { mockData } from "../../../mockData";
 import styles from "./navbar-search.module.css";
 
-const normalize = (value) => value.trim().toLowerCase();
+const normalize = (value) => value.trim().toLocaleLowerCase("de-DE")
+  .replaceAll("ä", "ae").replaceAll("ö", "oe").replaceAll("ü", "ue").replaceAll("ß", "ss");
 
-function getResults(search, location) {
+function getErgebnisse(search, location) {
   const term = normalize(search);
   const area = normalize(location);
   if (!term && !area) return { categories: [], companies: [] };
 
   const categories = area ? [] : mockData.categories.filter((category) =>
-    term && `${category.title} ${category.id.replaceAll("_", " ")}`.toLowerCase().includes(term),
+    term && normalize(`${category.title} ${category.id.replaceAll("_", " ")}`).includes(term),
   );
 
   const companies = mockData.companies
     .filter((company) => {
       const category = mockData.categories.find((item) => item.id === company.categoryId);
-      const searchable = [company.name, company.shortDesc, category?.title, ...company.prices.map((item) => item.service)].join(" ").toLowerCase();
-      return (!term || searchable.includes(term)) && (!area || company.address.toLowerCase().includes(area));
+      const searchable = normalize([company.name, company.shortDesc, category?.title, ...company.prices.map((item) => item.service)].join(" "));
+      return (!term || searchable.includes(term)) && (!area || normalize(company.address).includes(area));
     })
     .sort((a, b) => {
-      const score = (company) => (company.name.toLowerCase().startsWith(term) ? 2 : company.name.toLowerCase().includes(term) ? 1 : 0);
-      return score(b) - score(a) || a.name.localeCompare(b.name);
+      const score = (company) => (normalize(company.name).startsWith(term) ? 2 : normalize(company.name).includes(term) ? 1 : 0);
+      return score(b) - score(a) || a.name.localeCompare(b.name, "de-DE");
     });
 
   return { categories, companies };
 }
 
-function SearchIcon() {
+function SuchenIcon() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path strokeLinecap="round" d="m20 20-4-4" /></svg>;
 }
 
-export default function NavbarSearch({ isScrolled }) {
-  const [search, setSearch] = useState("");
+export default function NavbarSuchen({ isScrolled }) {
+  const [search, setSuchen] = useState("");
   const [location, setLocation] = useState("");
   const [submitted, setSubmitted] = useState({ search: "", location: "" });
   const [loading, setLoading] = useState(false);
-  const [resultsOpen, setResultsOpen] = useState(false);
+  const [resultsOpen, setErgebnisseOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const wrapRef = useRef(null);
   const searchInputRef = useRef(null);
@@ -58,13 +59,13 @@ export default function NavbarSearch({ isScrolled }) {
     if (!resultsOpen && !expanded) return;
     const onPointerDown = (event) => {
       if (!wrapRef.current?.contains(event.target)) {
-        setResultsOpen(false);
+        setErgebnisseOpen(false);
         setExpanded(false);
       }
     };
     const onKeyDown = (event) => {
       if (event.key === "Escape") {
-        setResultsOpen(false);
+        setErgebnisseOpen(false);
         if (isScrolled) setExpanded(false);
       }
     };
@@ -84,15 +85,15 @@ export default function NavbarSearch({ isScrolled }) {
     if (isScrolled && expanded) searchInputRef.current?.focus();
   }, [isScrolled, expanded]);
 
-  const results = useMemo(() => getResults(submitted.search, submitted.location), [submitted]);
+  const results = useMemo(() => getErgebnisse(submitted.search, submitted.location), [submitted]);
   const count = results.categories.length + results.companies.length;
   const hasQuery = Boolean(search.trim() || location.trim());
 
   function update(field, value) {
-    if (field === "search") setSearch(value);
+    if (field === "search") setSuchen(value);
     else setLocation(value);
     setLoading(Boolean((field === "search" ? value : search).trim() || (field === "location" ? value : location).trim()));
-    setResultsOpen(Boolean((field === "search" ? value : search).trim() || (field === "location" ? value : location).trim()));
+    setErgebnisseOpen(Boolean((field === "search" ? value : search).trim() || (field === "location" ? value : location).trim()));
     if (!(field === "search" ? value : search).trim() && !(field === "location" ? value : location).trim()) setSubmitted({ search: "", location: "" });
   }
 
@@ -101,35 +102,35 @@ export default function NavbarSearch({ isScrolled }) {
     if (!hasQuery) { searchInputRef.current?.focus(); return; }
     setSubmitted({ search, location });
     setLoading(false);
-    setResultsOpen(true);
+    setErgebnisseOpen(true);
   }
 
   return (
     <div ref={wrapRef} className={`${styles.wrap} ${isScrolled ? styles.compact : ""}`}>
-      {isScrolled && <button type="button" className={styles.openButton} aria-label="Open search" aria-expanded={expanded} onClick={() => { setExpanded((open) => !open); setResultsOpen(false); }}><SearchIcon /><span>Search</span></button>}
+      {isScrolled && <button type="button" className={styles.openButton} aria-label="Suche öffnen" aria-expanded={expanded} onClick={() => { setExpanded((open) => !open); setErgebnisseOpen(false); }}><SuchenIcon /><span>Suchen</span></button>}
       {(!isScrolled || expanded) && (
         <div className={styles.panel}>
           <form role="search" className={styles.form} onSubmit={submit}>
             <label className={styles.field}>
-              <span className="sr-only">Service or company</span>
-              <SearchIcon />
-              <input ref={searchInputRef} type="text" inputMode="search" autoComplete="off" value={search} onChange={(event) => update("search", event.target.value)} onFocus={() => { if (hasQuery) setResultsOpen(true); }} placeholder="Service or company" />
+              <span className="sr-only">Dienstleistung oder Unternehmen</span>
+              <SuchenIcon />
+              <input ref={searchInputRef} type="text" inputMode="search" autoComplete="off" value={search} onChange={(event) => update("search", event.target.value)} onFocus={() => { if (hasQuery) setErgebnisseOpen(true); }} placeholder="Dienstleistung oder Unternehmen" />
             </label>
             <label className={`${styles.field} ${styles.locationField}`}>
-              <span className="sr-only">City or area</span>
+              <span className="sr-only">Stadt oder Region</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2" /></svg>
-              <input type="text" autoComplete="address-level2" value={location} onChange={(event) => update("location", event.target.value)} onFocus={() => { if (hasQuery) setResultsOpen(true); }} placeholder="City or area" />
+              <input type="text" autoComplete="address-level2" value={location} onChange={(event) => update("location", event.target.value)} onFocus={() => { if (hasQuery) setErgebnisseOpen(true); }} placeholder="Stadt oder Region" />
             </label>
-            <button type="submit" className={styles.submit} aria-label="Search services and companies">{loading ? <span className={styles.spinner} aria-hidden="true" /> : <SearchIcon />}<span>Search</span></button>
+            <button type="submit" className={styles.submit} aria-label="Dienstleistungen und Unternehmen suchen">{loading ? <span className={styles.spinner} aria-hidden="true" /> : <SuchenIcon />}<span>Suchen</span></button>
           </form>
 
           {resultsOpen && hasQuery && (
-            <div className={styles.results} role="region" aria-label="Search results" aria-live="polite" aria-busy={loading}>
-              {loading ? <div className={styles.skeletons} role="status" aria-label="Searching">{[0, 1, 2, 3].map((item) => <div key={item}><span /><span /></div>)}</div> : count ? <>
-                <div className={styles.resultsHeading}><span>Results</span><span>{count} found</span></div>
-                {results.categories.map((category) => <Link key={category.id} href={`/services/${category.id}`} className={styles.result} onClick={() => { setResultsOpen(false); setExpanded(false); }}><span className={styles.categoryIcon}><SearchIcon /></span><span className={styles.resultText}><strong>{category.title}</strong><small>Service category</small></span><span aria-hidden="true">↗</span></Link>)}
-                {results.companies.map((company) => <Link key={company.id} href={`/services/${company.categoryId}/${company.id}`} className={styles.result} onClick={() => { setResultsOpen(false); setExpanded(false); }}><span className={styles.logo}><Image src={company.logo} alt="" fill sizes="42px" /></span><span className={styles.resultText}><strong>{company.name}</strong><small>{company.address}</small></span><span aria-hidden="true">↗</span></Link>)}
-              </> : <div className={styles.empty}><strong>No matches found</strong><span>Try another service, company, or area.</span></div>}
+            <div className={styles.results} role="region" aria-label="Suchergebnisse" aria-live="polite" aria-busy={loading}>
+              {loading ? <div className={styles.skeletons} role="status" aria-label="Suche läuft">{[0, 1, 2, 3].map((item) => <div key={item}><span /><span /></div>)}</div> : count ? <>
+                <div className={styles.resultsHeading}><span>Ergebnisse</span><span>{count} gefunden</span></div>
+                {results.categories.map((category) => <Link key={category.id} href={`/services/${category.id}`} className={styles.result} onClick={() => { setErgebnisseOpen(false); setExpanded(false); }}><span className={styles.categoryIcon}><SuchenIcon /></span><span className={styles.resultText}><strong>{category.title}</strong><small>Dienstleistungskategorie</small></span><span aria-hidden="true">↗</span></Link>)}
+                {results.companies.map((company) => <Link key={company.id} href={`/services/${company.categoryId}/${company.id}`} className={styles.result} onClick={() => { setErgebnisseOpen(false); setExpanded(false); }}><span className={styles.logo}><Image src={company.logo} alt="" fill sizes="42px" /></span><span className={styles.resultText}><strong>{company.name}</strong><small>{company.address}</small></span><span aria-hidden="true">↗</span></Link>)}
+              </> : <div className={styles.empty}><strong>Keine Treffer gefunden</strong><span>Versuchen Sie eine andere Dienstleistung, ein Unternehmen oder einen Ort.</span></div>}
             </div>
           )}
         </div>

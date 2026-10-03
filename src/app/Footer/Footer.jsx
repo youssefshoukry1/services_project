@@ -10,8 +10,8 @@ const socialLinks = [
   { name: "LinkedIn", url: process.env.NEXT_PUBLIC_LINKEDIN_URL, icon: "linkedin" },
 ].filter((item) => item.url?.startsWith("https://"));
 const policyLinks = [
-  { name: "Privacy policy", url: process.env.NEXT_PUBLIC_PRIVACY_URL },
-  { name: "Terms of use", url: process.env.NEXT_PUBLIC_TERMS_URL },
+  { name: "Datenschutzerklärung", url: process.env.NEXT_PUBLIC_PRIVACY_URL },
+  { name: "Nutzungsbedingungen", url: process.env.NEXT_PUBLIC_TERMS_URL },
 ].filter((item) => item.url?.startsWith("https://") || item.url?.startsWith("/"));
 
 function SocialIcon({ type }) {
@@ -30,7 +30,7 @@ export default function Footer() {
     if (!email.trim() || !message.trim()) return;
     setEmail("");
     setMessage("");
-    setStatus("Form cleared. Message sending will be available soon.");
+    setStatus("Formular geleert. Der Nachrichtenversand wird bald verfügbar sein.");
   }
 
   return (
@@ -38,45 +38,45 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.top}>
           <div className={styles.brandColumn}>
-            <Link href="/" className={styles.logo} aria-label="ServiceHub home">Service<span>Hub</span></Link>
-            <p>Find local professionals for the work that matters. Browse companies, compare services, and contact them directly.</p>
-            {socialLinks.length > 0 && <div className={styles.socials} aria-label="ServiceHub social media">{socialLinks.map((social) => <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} title={social.name}><SocialIcon type={social.icon} /></a>)}</div>}
+            <Link href="/" className={styles.logo} aria-label="ServiceHub Startseite">Service<span>Hub</span></Link>
+            <p>Finden Sie Fachbetriebe in Ihrer Nähe. Vergleichen Sie Leistungen und nehmen Sie direkt Kontakt auf.</p>
+            {socialLinks.length > 0 && <div className={styles.socials} aria-label="ServiceHub in sozialen Medien">{socialLinks.map((social) => <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} title={social.name}><SocialIcon type={social.icon} /></a>)}</div>}
           </div>
 
-          <nav className={styles.linksColumn} aria-label="Footer services">
-            <h2>Services</h2>
-            <Link href="/services/painters">Painting</Link>
-            <Link href="/services/cleaning">Cleaning</Link>
-            <Link href="/services/auto_repair">Auto repair</Link>
-            <Link href="/services">All services</Link>
+          <nav className={styles.linksColumn} aria-label="Dienstleistungen im Footer">
+            <h2>Dienstleistungen</h2>
+            <Link href="/services/painters">Malerarbeiten</Link>
+            <Link href="/services/cleaning">Reinigung</Link>
+            <Link href="/services/auto_repair">Autoreparatur</Link>
+            <Link href="/services">Alle Dienstleistungen</Link>
           </nav>
 
-          <nav className={styles.linksColumn} aria-label="Footer navigation">
-            <h2>Explore</h2>
-            <Link href="/">Home</Link>
-            <Link href="/services">Browse companies</Link>
-            <a href="#contact-form">Contact us</a>
+          <nav className={styles.linksColumn} aria-label="Footernavigation">
+            <h2>Entdecken</h2>
+            <Link href="/">Startseite</Link>
+            <Link href="/services">Unternehmen entdecken</Link>
+            <a href="#contact-form">Kontakt</a>
           </nav>
 
           <div className={styles.contactColumn}>
-            <h2>Send a message</h2>
-            <p>Have a question about ServiceHub? Write to us.</p>
+            <h2>Nachricht senden</h2>
+            <p>Haben Sie eine Frage zu ServiceHub? Schreiben Sie uns.</p>
             <form id="contact-form" onSubmit={handleSubmit} className={styles.form}>
-              <label htmlFor="footer-email" className="sr-only">Your email</label>
-              <input id="footer-email" type="email" autoComplete="email" required value={email} onChange={(event) => { setEmail(event.target.value); setStatus(""); }} placeholder="Your email" />
-              <label htmlFor="footer-message" className="sr-only">Your message</label>
-              <textarea id="footer-message" required rows="3" maxLength="2000" value={message} onChange={(event) => { setMessage(event.target.value); setStatus(""); }} placeholder="Your message" />
-              <button type="submit">Send <span aria-hidden="true">↗</span></button>
+              <label htmlFor="footer-email" className="sr-only">Ihre E-Mail-Adresse</label>
+              <input id="footer-email" type="email" autoComplete="email" required value={email} onChange={(event) => { setEmail(event.target.value); setStatus(""); }} placeholder="Ihre E-Mail-Adresse" />
+              <label htmlFor="footer-message" className="sr-only">Ihre Nachricht</label>
+              <textarea id="footer-message" required rows="3" maxLength="2000" value={message} onChange={(event) => { setMessage(event.target.value); setStatus(""); }} placeholder="Ihre Nachricht" />
+              <button type="submit">Senden <span aria-hidden="true">↗</span></button>
               {status && <small role="status">{status}</small>}
             </form>
           </div>
         </div>
 
         <div className={styles.bottom}>
-          <span>© {new Date().getFullYear()} ServiceHub. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} ServiceHub. Alle Rechte vorbehalten.</span>
           <div className={styles.bottomLinks}>
             {policyLinks.map((link) => <a key={link.name} href={link.url}>{link.name}</a>)}
-            <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Back to top ↑</button>
+            <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Nach oben ↑</button>
           </div>
         </div>
       </div>

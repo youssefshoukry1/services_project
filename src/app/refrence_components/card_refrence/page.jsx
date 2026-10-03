@@ -6,14 +6,14 @@ export default function CardReference() {
       <div className={styles.parent}>
         <div className={styles.card}>
           <div className={styles.contentBox}>
-            <span className={styles.cardTitle}>3D Card</span>
+            <span className={styles.cardTitle}>3D-Karte</span>
             <p className={styles.cardContent}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Ein Beispiel für eine interaktive Karte.
             </p>
-            <span className={styles.seeMore}>See More</span>
+            <span className={styles.seeMore}>Mehr ansehen</span>
           </div>
           <div className={styles.dateBox}>
-            <span>June</span>
+            <span>Juni</span>
             <strong>29</strong>
           </div>
         </div>

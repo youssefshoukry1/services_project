@@ -1,258 +1,340 @@
+// Fiktive Beispieleinträge für die Demo. Keine realen Unternehmen oder Kontaktdaten.
 export const mockData = {
-  categories: [
-    { 
-      id: "painters", 
-      title: "Painting & Decorating", 
-      icon: "🖌️" 
+  "categories": [
+    {
+      "id": "painters",
+      "title": "Malerarbeiten & Gestaltung",
+      "icon": "🖌️"
     },
-    { 
-      id: "cleaning", 
-      title: "Cleaning Services", 
-      icon: "🧹" 
+    {
+      "id": "cleaning",
+      "title": "Reinigungsdienste",
+      "icon": "🧹"
     },
-    { 
-      id: "auto_repair", 
-      title: "Auto Repair & Maintenance", 
-      icon: "🚗" 
+    {
+      "id": "auto_repair",
+      "title": "Autoreparatur & Wartung",
+      "icon": "🚗"
     }
   ],
-  
-  companies: [
-    // ==========================================
-    // 1. Painters (5 Companies)
-    // ==========================================
+  "companies": [
     {
-      id: "comp-p1",
-      categoryId: "painters",
-      name: "ColorPro Painters",
-      logo: "/images/logos/colorpro.webp",
-      shortDesc: "Expert interior and exterior painting services for residential properties.",
-      address: "123 Main St, Giza",
-      phone: "+20 101 111 1111",
-      email: "contact@colorpro.com",
-      website: "https://colorpro.example.com",
-      prices: [
-        { service: "Interior Wall Painting", price: "$10 / sqm" },
-        { service: "Exterior Facade Painting", price: "$15 / sqm" },
-        { service: "Wood Staining", price: "$8 / sqm" }
+      "id": "comp-p1",
+      "categoryId": "painters",
+      "name": "ColorPro Painters",
+      "logo": "/images/logos/colorpro.webp",
+      "shortDesc": "Professionelle Innen- und Außenanstriche für Wohngebäude.",
+      "address": "Musterstraße 12, 10115 Berlin",
+      "phone": "+49 30 0000 0001",
+      "email": "kontakt1@example.com",
+      "website": "https://example.com/comp-p1",
+      "prices": [
+        {
+          "service": "Innenwände streichen",
+          "price": "10 € / m²"
+        },
+        {
+          "service": "Fassade streichen",
+          "price": "15 € / m²"
+        },
+        {
+          "service": "Holz lasieren",
+          "price": "8 € / m²"
+        }
       ]
     },
     {
-      id: "comp-p2",
-      categoryId: "painters",
-      name: "Brush & Roll Studio",
-      logo: "/images/logos/brushroll.webp",
-      shortDesc: "Modern decorative paints and high-quality wallpaper installation.",
-      address: "45 Nile St, Cairo",
-      phone: "+20 102 222 2222",
-      email: "info@brushroll.com",
-      website: "https://brushroll.example.com",
-      prices: [
-        { service: "Decorative Painting", price: "$20 / sqm" },
-        { service: "Wallpaper Installation", price: "$12 / roll" }
+      "id": "comp-p2",
+      "categoryId": "painters",
+      "name": "Brush & Roll Studio",
+      "logo": "/images/logos/brushroll.webp",
+      "shortDesc": "Dekorative Anstriche und hochwertige Tapetenarbeiten.",
+      "address": "Beispielweg 45, 20095 Hamburg",
+      "phone": "+49 40 0000 0002",
+      "email": "kontakt2@example.com",
+      "website": "https://example.com/comp-p2",
+      "prices": [
+        {
+          "service": "Dekorative Wandgestaltung",
+          "price": "20 € / m²"
+        },
+        {
+          "service": "Tapeten anbringen",
+          "price": "12 € / Rolle"
+        }
       ]
     },
     {
-      id: "comp-p3",
-      categoryId: "painters",
-      name: "Elite Wall Coatings",
-      logo: "/images/logos/elitewalls.webp",
-      shortDesc: "Premium commercial and industrial painting solutions.",
-      address: "78 Maadi, Cairo",
-      phone: "+20 103 333 3333",
-      email: "sales@elitewalls.com",
-      website: "https://elitewalls.example.com",
-      prices: [
-        { service: "Commercial Office Painting", price: "$12 / sqm" },
-        { service: "Industrial Epoxy Coating", price: "$25 / sqm" }
+      "id": "comp-p3",
+      "categoryId": "painters",
+      "name": "Elite Wall Coatings",
+      "logo": "/images/logos/elitewalls.webp",
+      "shortDesc": "Beschichtungen für Gewerbe- und Industrieflächen.",
+      "address": "Musterallee 78, 80331 München",
+      "phone": "+49 89 0000 0003",
+      "email": "kontakt3@example.com",
+      "website": "https://example.com/comp-p3",
+      "prices": [
+        {
+          "service": "Büroräume streichen",
+          "price": "12 € / m²"
+        },
+        {
+          "service": "Industrieboden beschichten",
+          "price": "25 € / m²"
+        }
       ]
     },
     {
-      id: "comp-p4",
-      categoryId: "painters",
-      name: "QuickCoat Services",
-      logo: "/images/logos/quickcoat.webp",
-      shortDesc: "Fast, reliable, and affordable painting services for quick move-ins.",
-      address: "90 Dokki, Giza",
-      phone: "+20 104 444 4444",
-      email: "support@quickcoat.com",
-      website: "https://quickcoat.example.com",
-      prices: [
-        { service: "Basic Repainting", price: "$7 / sqm" },
-        { service: "Ceiling Painting", price: "$9 / sqm" }
+      "id": "comp-p4",
+      "categoryId": "painters",
+      "name": "QuickCoat Services",
+      "logo": "/images/logos/quickcoat.webp",
+      "shortDesc": "Schnelle und zuverlässige Malerarbeiten für den Einzug.",
+      "address": "Beispielstraße 90, 50667 Köln",
+      "phone": "+49 221 0000 0004",
+      "email": "kontakt4@example.com",
+      "website": "https://example.com/comp-p4",
+      "prices": [
+        {
+          "service": "Wände neu streichen",
+          "price": "7 € / m²"
+        },
+        {
+          "service": "Decken streichen",
+          "price": "9 € / m²"
+        }
       ]
     },
     {
-      id: "comp-p5",
-      categoryId: "painters",
-      name: "Artistic Finishes",
-      logo: "/images/logos/artistic.webp",
-      shortDesc: "Custom wall murals and artistic hand-painted designs for unique spaces.",
-      address: "12 Zamalek, Cairo",
-      phone: "+20 105 555 5555",
-      email: "hello@artisticfinishes.com",
-      website: "https://artisticfinishes.example.com",
-      prices: [
-        { service: "Custom Wall Murals", price: "Starts at $150" },
-        { service: "Faux Finishes", price: "$30 / sqm" }
-      ]
-    },
-
-    // ==========================================
-    // 2. Cleaning Services (5 Companies)
-    // ==========================================
-    {
-      id: "comp-c1",
-      categoryId: "cleaning",
-      name: "Sparkle Cleaners",
-      logo: "/images/logos/sparkle.webp",
-      shortDesc: "Deep home and office cleaning with a 100% satisfaction guarantee.",
-      address: "34 Mohandeseen, Giza",
-      phone: "+20 111 111 1111",
-      email: "booking@sparkle.com",
-      website: "https://sparkle.example.com",
-      prices: [
-        { service: "Deep Home Cleaning", price: "$50 / visit" },
-        { service: "Move-in / Move-out Cleaning", price: "$80 / visit" }
+      "id": "comp-p5",
+      "categoryId": "painters",
+      "name": "Artistic Finishes",
+      "logo": "/images/logos/artistic.webp",
+      "shortDesc": "Individuelle Wandbilder und handgemalte Raumgestaltung.",
+      "address": "Musterplatz 12, 60311 Frankfurt am Main",
+      "phone": "+49 69 0000 0005",
+      "email": "kontakt5@example.com",
+      "website": "https://example.com/comp-p5",
+      "prices": [
+        {
+          "service": "Wandbilder gestalten",
+          "price": "Ab 150 €"
+        },
+        {
+          "service": "Dekorative Oberflächen",
+          "price": "30 € / m²"
+        }
       ]
     },
     {
-      id: "comp-c2",
-      categoryId: "cleaning",
-      name: "Crystal Clear Glass",
-      logo: "/images/logos/crystalclear.webp",
-      shortDesc: "Professional window and glass facade cleaning experts.",
-      address: "55 Heliopolis, Cairo",
-      phone: "+20 112 222 2222",
-      email: "info@crystalclear.com",
-      website: "https://crystalclear.example.com",
-      prices: [
-        { service: "Residential Window Cleaning", price: "$40 / visit" },
-        { service: "Commercial Facade Cleaning", price: "$120 / visit" }
+      "id": "comp-c1",
+      "categoryId": "cleaning",
+      "name": "Sparkle Cleaners",
+      "logo": "/images/logos/sparkle.webp",
+      "shortDesc": "Gründliche Reinigung von Wohnungen und Büros.",
+      "address": "Musterstraße 34, 10115 Berlin",
+      "phone": "+49 30 0000 0006",
+      "email": "kontakt6@example.com",
+      "website": "https://example.com/comp-c1",
+      "prices": [
+        {
+          "service": "Wohnung grundreinigen",
+          "price": "50 € / Termin"
+        },
+        {
+          "service": "Einzugs- und Auszugsreinigung",
+          "price": "80 € / Termin"
+        }
       ]
     },
     {
-      id: "comp-c3",
-      categoryId: "cleaning",
-      name: "EcoClean Homes",
-      logo: "/images/logos/ecoclean.webp",
-      shortDesc: "Using only environmentally friendly and non-toxic cleaning products.",
-      address: "88 Nasr City, Cairo",
-      phone: "+20 113 333 3333",
-      email: "contact@ecoclean.com",
-      website: "https://ecoclean.example.com",
-      prices: [
-        { service: "Eco-friendly Standard Clean", price: "$60 / visit" },
-        { service: "Carpet & Upholstery Wash", price: "$35 / item" }
+      "id": "comp-c2",
+      "categoryId": "cleaning",
+      "name": "Crystal Clear Glass",
+      "logo": "/images/logos/crystalclear.webp",
+      "shortDesc": "Professionelle Fenster- und Glasfassadenreinigung.",
+      "address": "Beispielweg 55, 20095 Hamburg",
+      "phone": "+49 40 0000 0007",
+      "email": "kontakt7@example.com",
+      "website": "https://example.com/comp-c2",
+      "prices": [
+        {
+          "service": "Fensterreinigung",
+          "price": "40 € / Termin"
+        },
+        {
+          "service": "Glasfassade reinigen",
+          "price": "120 € / Termin"
+        }
       ]
     },
     {
-      id: "comp-c4",
-      categoryId: "cleaning",
-      name: "Maid for You",
-      logo: "/images/logos/maidforyou.webp",
-      shortDesc: "Reliable daily, weekly, and monthly maid services tailored to your needs.",
-      address: "21 6th of October, Giza",
-      phone: "+20 114 444 4444",
-      email: "support@maidforyou.com",
-      website: "https://maidforyou.example.com",
-      prices: [
-        { service: "Weekly Maintenance", price: "$30 / visit" },
-        { service: "Monthly Subscription", price: "$100 / month" }
+      "id": "comp-c3",
+      "categoryId": "cleaning",
+      "name": "EcoClean Homes",
+      "logo": "/images/logos/ecoclean.webp",
+      "shortDesc": "Reinigung mit umweltfreundlichen Produkten.",
+      "address": "Musterallee 88, 80331 München",
+      "phone": "+49 89 0000 0008",
+      "email": "kontakt8@example.com",
+      "website": "https://example.com/comp-c3",
+      "prices": [
+        {
+          "service": "Umweltfreundliche Reinigung",
+          "price": "60 € / Termin"
+        },
+        {
+          "service": "Teppiche und Polster reinigen",
+          "price": "35 € / Stück"
+        }
       ]
     },
     {
-      id: "comp-c5",
-      categoryId: "cleaning",
-      name: "Prime Janitorial",
-      logo: "/images/logos/primejanitorial.webp",
-      shortDesc: "Heavy-duty industrial and post-construction cleaning services.",
-      address: "99 Obour City, Cairo",
-      phone: "+20 115 555 5555",
-      email: "sales@primejanitorial.com",
-      website: "https://primejanitorial.example.com",
-      prices: [
-        { service: "Post-Construction Clean", price: "$150 / visit" },
-        { service: "Warehouse Cleaning", price: "$200 / visit" }
-      ]
-    },
-
-    // ==========================================
-    // 3. Auto Repair & Maintenance (5 Companies)
-    // ==========================================
-    {
-      id: "comp-a1",
-      categoryId: "auto_repair",
-      name: "Speedy Auto Fix",
-      logo: "/images/logos/speedyauto.webp",
-      shortDesc: "General mechanics, quick oil changes, and regular maintenance.",
-      address: "10 Haram St, Giza",
-      phone: "+20 121 111 1111",
-      email: "info@speedyauto.com",
-      website: "https://speedyauto.example.com",
-      prices: [
-        { service: "Full Oil Change & Filter", price: "$30" },
-        { service: "Brake Pad Replacement", price: "$45" }
+      "id": "comp-c4",
+      "categoryId": "cleaning",
+      "name": "Maid for You",
+      "logo": "/images/logos/maidforyou.webp",
+      "shortDesc": "Regelmäßige Haushaltsreinigung nach Ihrem Bedarf.",
+      "address": "Beispielstraße 21, 50667 Köln",
+      "phone": "+49 221 0000 0009",
+      "email": "kontakt9@example.com",
+      "website": "https://example.com/comp-c4",
+      "prices": [
+        {
+          "service": "Wöchentliche Reinigung",
+          "price": "30 € / Termin"
+        },
+        {
+          "service": "Monatliche Betreuung",
+          "price": "100 € / Monat"
+        }
       ]
     },
     {
-      id: "comp-a2",
-      categoryId: "auto_repair",
-      name: "Gearbox Gurus",
-      logo: "/images/logos/gearboxgurus.webp",
-      shortDesc: "Specialists in manual and automatic transmission overhauls.",
-      address: "20 Faisal St, Giza",
-      phone: "+20 122 222 2222",
-      email: "support@gearboxgurus.com",
-      website: "https://gearboxgurus.example.com",
-      prices: [
-        { service: "Transmission Diagnostics", price: "$50" },
-        { service: "Clutch Replacement", price: "$180" }
+      "id": "comp-c5",
+      "categoryId": "cleaning",
+      "name": "Prime Janitorial",
+      "logo": "/images/logos/primejanitorial.webp",
+      "shortDesc": "Reinigung nach Bauarbeiten und für Gewerbeflächen.",
+      "address": "Musterplatz 99, 60311 Frankfurt am Main",
+      "phone": "+49 69 0000 0010",
+      "email": "kontakt10@example.com",
+      "website": "https://example.com/comp-c5",
+      "prices": [
+        {
+          "service": "Baureinigung",
+          "price": "150 € / Termin"
+        },
+        {
+          "service": "Lagerhalle reinigen",
+          "price": "200 € / Termin"
+        }
       ]
     },
     {
-      id: "comp-a3",
-      categoryId: "auto_repair",
-      name: "Tire & Track",
-      logo: "/images/logos/tiretrack.webp",
-      shortDesc: "Wheel alignment, balancing, and premium tire replacements.",
-      address: "30 New Cairo, Cairo",
-      phone: "+20 123 333 3333",
-      email: "sales@tiretrack.com",
-      website: "https://tiretrack.example.com",
-      prices: [
-        { service: "Computerized Wheel Alignment", price: "$25" },
-        { service: "Tire Rotation & Balancing", price: "$20" }
+      "id": "comp-a1",
+      "categoryId": "auto_repair",
+      "name": "Speedy Auto Fix",
+      "logo": "/images/logos/speedyauto.webp",
+      "shortDesc": "Allgemeine Kfz-Reparaturen, Ölwechsel und Wartung.",
+      "address": "Musterstraße 10, 10115 Berlin",
+      "phone": "+49 30 0000 0011",
+      "email": "kontakt11@example.com",
+      "website": "https://example.com/comp-a1",
+      "prices": [
+        {
+          "service": "Ölwechsel mit Filter",
+          "price": "30 €"
+        },
+        {
+          "service": "Bremsbeläge wechseln",
+          "price": "45 €"
+        }
       ]
     },
     {
-      id: "comp-a4",
-      categoryId: "auto_repair",
-      name: "Auto Body Masters",
-      logo: "/images/logos/autobody.webp",
-      shortDesc: "Professional dent repair, painting, and collision restoration.",
-      address: "40 Sheikh Zayed, Giza",
-      phone: "+20 124 444 4444",
-      email: "contact@autobodymasters.com",
-      website: "https://autobodymasters.example.com",
-      prices: [
-        { service: "Minor Dent Repair", price: "Starts at $40" },
-        { service: "Full Car Painting", price: "Starts at $400" }
+      "id": "comp-a2",
+      "categoryId": "auto_repair",
+      "name": "Gearbox Gurus",
+      "logo": "/images/logos/gearboxgurus.webp",
+      "shortDesc": "Reparatur von Schalt- und Automatikgetrieben.",
+      "address": "Beispielweg 20, 20095 Hamburg",
+      "phone": "+49 40 0000 0012",
+      "email": "kontakt12@example.com",
+      "website": "https://example.com/comp-a2",
+      "prices": [
+        {
+          "service": "Getriebediagnose",
+          "price": "50 €"
+        },
+        {
+          "service": "Kupplung wechseln",
+          "price": "180 €"
+        }
       ]
     },
     {
-      id: "comp-a5",
-      categoryId: "auto_repair",
-      name: "ElectroCar Clinic",
-      logo: "/images/logos/electrocar.webp",
-      shortDesc: "Advanced computer diagnostics and car electrical system repairs.",
-      address: "50 Shoubra, Cairo",
-      phone: "+20 125 555 5555",
-      email: "hello@electrocar.com",
-      website: "https://electrocar.example.com",
-      prices: [
-        { service: "Full System Diagnostics", price: "$35" },
-        { service: "Battery & Alternator Check", price: "$15" }
+      "id": "comp-a3",
+      "categoryId": "auto_repair",
+      "name": "Tire & Track",
+      "logo": "/images/logos/tiretrack.webp",
+      "shortDesc": "Achsvermessung, Auswuchten und Reifenwechsel.",
+      "address": "Musterallee 30, 80331 München",
+      "phone": "+49 89 0000 0013",
+      "email": "kontakt13@example.com",
+      "website": "https://example.com/comp-a3",
+      "prices": [
+        {
+          "service": "Achsvermessung",
+          "price": "25 €"
+        },
+        {
+          "service": "Reifenwechsel und Auswuchten",
+          "price": "20 €"
+        }
+      ]
+    },
+    {
+      "id": "comp-a4",
+      "categoryId": "auto_repair",
+      "name": "Auto Body Masters",
+      "logo": "/images/logos/autobody.webp",
+      "shortDesc": "Professionelle Reparatur von Dellen und Karosserieschäden.",
+      "address": "Beispielstraße 40, 50667 Köln",
+      "phone": "+49 221 0000 0014",
+      "email": "kontakt14@example.com",
+      "website": "https://example.com/comp-a4",
+      "prices": [
+        {
+          "service": "Kleine Dellen entfernen",
+          "price": "Ab 40 €"
+        },
+        {
+          "service": "Fahrzeuglackierung",
+          "price": "Ab 400 €"
+        }
+      ]
+    },
+    {
+      "id": "comp-a5",
+      "categoryId": "auto_repair",
+      "name": "ElectroCar Clinic",
+      "logo": "/images/logos/electrocar.webp",
+      "shortDesc": "Elektronische Fahrzeugdiagnose und Reparatur.",
+      "address": "Musterplatz 50, 60311 Frankfurt am Main",
+      "phone": "+49 69 0000 0015",
+      "email": "kontakt15@example.com",
+      "website": "https://example.com/comp-a5",
+      "prices": [
+        {
+          "service": "Systemdiagnose",
+          "price": "35 €"
+        },
+        {
+          "service": "Batterie und Lichtmaschine prüfen",
+          "price": "15 €"
+        }
       ]
     }
   ]

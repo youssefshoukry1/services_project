@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function service_id_page() {
+export default function Dienstleistungsseite() {
   return (
-    <div>service_id_page</div>
+    <div>Dienstleistungsseite</div>
   )
 }

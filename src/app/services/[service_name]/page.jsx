@@ -6,18 +6,18 @@ import styles from "./service-page.module.css";
 
 const categoryDetails = {
   painters: {
-    eyebrow: "Painting professionals",
-    description: "Refresh your space with experienced painters for interiors, exteriors, and decorative finishes.",
+    eyebrow: "Malerbetriebe",
+    description: "Erfahrene Malerbetriebe für Innenräume, Fassaden und dekorative Oberflächen.",
     icon: "paint",
   },
   cleaning: {
-    eyebrow: "Cleaning professionals",
-    description: "Find dependable cleaning teams for homes, offices, windows, and demanding deep-clean projects.",
+    eyebrow: "Reinigungsbetriebe",
+    description: "Finden Sie zuverlässige Reinigungsteams für Wohnungen, Büros, Fenster und Grundreinigungen.",
     icon: "sparkles",
   },
   auto_repair: {
-    eyebrow: "Automotive professionals",
-    description: "Connect with local mechanics for maintenance, diagnostics, tires, bodywork, and repairs.",
+    eyebrow: "Kfz-Fachbetriebe",
+    description: "Finden Sie Werkstätten vor Ort für Wartung, Diagnose, Reifen, Karosserie und Reparaturen.",
     icon: "car",
   },
 };
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }) {
   const service = getServiceData(serviceName);
 
   if (!service) {
-    return { title: "Service not found | ServiceHub" };
+    return { title: "Dienstleistung nicht gefunden | ServiceHub" };
   }
 
   return {
@@ -77,7 +77,7 @@ export default async function ServicePage({ params }) {
 
   if (!service) notFound();
 
-  const listedServices = service.companies.reduce(
+  const listedDienstleistungen = service.companies.reduce(
     (total, company) => total + company.prices.length,
     0,
   );
@@ -87,12 +87,12 @@ export default async function ServicePage({ params }) {
       <div className={styles.ambientGlow} aria-hidden="true" />
 
       <div className={styles.container}>
-        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-          <Link href="/">Home</Link>
+        <nav className={styles.breadcrumbs} aria-label="Brotkrumennavigation">
+          <Link href="/">Startseite</Link>
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <path d="m8 5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <Link href="/services">Services</Link>
+          <Link href="/services">Dienstleistungen</Link>
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <path d="m8 5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -111,18 +111,18 @@ export default async function ServicePage({ params }) {
           <div className={styles.features}>
             <article>
               <span className={styles.featureNumber}>01</span>
-              <h3>Local options</h3>
-              <p>Compare professionals currently available in this category.</p>
+              <h3>Angebote vor Ort</h3>
+              <p>Vergleichen Sie die eingetragenen Betriebe dieser Kategorie.</p>
             </article>
             <article>
               <span className={styles.featureNumber}>02</span>
-              <h3>Clear pricing</h3>
-              <p>Review listed services and starting prices before reaching out.</p>
+              <h3>Übersichtliche Preise</h3>
+              <p>Prüfen Sie Leistungen und Einstiegspreise vor der Kontaktaufnahme.</p>
             </article>
             <article>
               <span className={styles.featureNumber}>03</span>
-              <h3>Direct contact</h3>
-              <p>Connect with each company using the details they provide.</p>
+              <h3>Direkter Kontakt</h3>
+              <p>Kontaktieren Sie Unternehmen über die angegebenen Kontaktdaten.</p>
             </article>
           </div>
         </section>

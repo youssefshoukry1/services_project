@@ -6,40 +6,27 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./service-page.module.css";
 
 const sortOptions = [
-  { value: "recommended", label: "Recommended", detail: "Original listing order" },
-  { value: "nearby", label: "Nearest area", detail: "Approximate area match" },
-  { value: "alphabetical", label: "Name A-Z", detail: "Browse alphabetically" },
-  { value: "price", label: "Lowest starting price", detail: "Budget-friendly first" },
+  { value: "recommended", label: "Empfohlen", detail: "Ursprüngliche Reihenfolge" },
+  { value: "nearby", label: "Nächste Region", detail: "Ungefähre Nähe" },
+  { value: "alphabetical", label: "Name A–Z", detail: "Alphabetisch sortieren" },
+  { value: "price", label: "Niedrigster Einstiegspreis", detail: "Günstigste zuerst" },
 ];
 
-const areaOptions = [
-  { label: "Cairo", area: "Cairo", city: "Cairo" },
-  { label: "Maadi, Cairo", area: "Maadi", city: "Cairo" },
-  { label: "Zamalek, Cairo", area: "Zamalek", city: "Cairo" },
-  { label: "Heliopolis, Cairo", area: "Heliopolis", city: "Cairo" },
-  { label: "Nasr City, Cairo", area: "Nasr City", city: "Cairo" },
-  { label: "New Cairo, Cairo", area: "New Cairo", city: "Cairo" },
-  { label: "Obour City, Cairo", area: "Obour City", city: "Cairo" },
-  { label: "Shoubra, Cairo", area: "Shoubra", city: "Cairo" },
-  { label: "Giza", area: "Giza", city: "Giza" },
-  { label: "Dokki, Giza", area: "Dokki", city: "Giza" },
-  { label: "Mohandeseen, Giza", area: "Mohandeseen", city: "Giza" },
-  { label: "6th of October, Giza", area: "6th of October", city: "Giza" },
-  { label: "Haram, Giza", area: "Haram", city: "Giza" },
-  { label: "Faisal, Giza", area: "Faisal", city: "Giza" },
-  { label: "Sheikh Zayed, Giza", area: "Sheikh Zayed", city: "Giza" },
-];
+const areaOptions = ["Berlin", "Hamburg", "München", "Köln", "Frankfurt am Main"].map((city) => ({ label: city, area: city, city }));
+
+const normalize = (value) => value.trim().toLocaleLowerCase("de-DE")
+  .replaceAll("ä", "ae").replaceAll("ö", "oe").replaceAll("ü", "ue").replaceAll("ß", "ss");
 
 function areaScore(company, location) {
-  const address = company.address.toLowerCase();
-  if (address.includes(location.area.toLowerCase())) return 2;
-  if (address.includes(location.city.toLowerCase())) return 1;
+  const address = normalize(company.address);
+  if (address.includes(normalize(location.area))) return 2;
+  if (address.includes(normalize(location.city))) return 1;
   return 0;
 }
 
 function getLowestPrice(company) {
   const prices = company.prices
-    .map((item) => Number(item.price.match(/[\d.]+/)?.[0]))
+    .map((item) => Number(item.price.match(/\d+(?:[.,]\d+)?/)?.[0]?.replace(",", ".")))
     .filter(Number.isFinite);
 
   return prices.length ? Math.min(...prices) : Number.POSITIVE_INFINITY;
@@ -110,15 +97,15 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
   }, [locationOpen]);
 
   const visibleCompanies = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedQuery = normalize(query);
     const matches = companies.filter((company) =>
       [company.name, company.address, company.shortDesc].some((value) =>
-        value.toLowerCase().includes(normalizedQuery),
+        normalize(value).includes(normalizedQuery),
       ),
     );
 
     if (sortBy === "alphabetical") {
-      return [...matches].sort((first, second) => first.name.localeCompare(second.name));
+      return [...matches].sort((first, second) => first.name.localeCompare(second.name, "de-DE"));
     }
 
     if (sortBy === "price") {
@@ -132,7 +119,7 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
     return matches;
   }, [companies, query, sortBy, location]);
 
-  const filteredAreas = areaOptions.filter((item) => item.label.toLowerCase().includes(areaQuery.trim().toLowerCase()));
+  const filteredAreas = areaOptions.filter((item) => normalize(item.label).includes(normalize(areaQuery)));
 
   function selectSort(value) {
     setSortOpen(false);
@@ -183,11 +170,11 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
     <section ref={directoryRef} id="companies" className={styles.directory} aria-labelledby="directory-heading">
       <header className={styles.directoryHeading}>
         <div>
-          <span>Available near you</span>
-          <h2 id="directory-heading">Choose your professional.</h2>
+          <span>In Ihrer Nähe</span>
+          <h2 id="directory-heading">Wählen Sie einen Fachbetrieb.</h2>
         </div>
         <p>
-          {companies.length} companies offering {categoryTitle.toLowerCase()} services.
+          {companies.length} Unternehmen bieten {categoryTitle.toLowerCase()} an.
         </p>
       </header>
 
@@ -197,16 +184,16 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
             <circle cx="11" cy="11" r="7" />
             <path strokeLinecap="round" d="m20 20-4-4" />
           </svg>
-          <span className="sr-only">Search companies</span>
+          <span className="sr-only">Unternehmen suchen</span>
           <input
             type="text"
             inputMode="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search by company or area"
+            placeholder="Nach Unternehmen oder Ort suchen"
           />
           {query && (
-            <button type="button" onClick={() => setQuery("")} aria-label="Clear search">
+            <button type="button" onClick={() => setQuery("")} aria-label="Suche löschen">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                 <path strokeLinecap="round" d="m5 5 10 10M15 5 5 15" />
               </svg>
@@ -215,8 +202,8 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
         </label>
 
         <div ref={sortRef} className={styles.sortWrap}>
-          <button ref={sortButtonRef} type="button" className={styles.sortBox} aria-label={`Sort companies: ${sortOptions.find((option) => option.value === sortBy).label}`} aria-expanded={sortOpen} aria-controls="company-sort-options" onClick={() => setSortOpen((open) => !open)}>
-            <span className={styles.sortLabel}>Sort</span>
+          <button ref={sortButtonRef} type="button" className={styles.sortBox} aria-label={`Unternehmen sortieren: ${sortOptions.find((option) => option.value === sortBy).label}`} aria-expanded={sortOpen} aria-controls="company-sort-options" onClick={() => setSortOpen((open) => !open)}>
+            <span className={styles.sortLabel}>Sortieren</span>
             <span className={styles.sortValue}>{sortOptions.find((option) => option.value === sortBy).label}</span>
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="m6 8 4 4 4-4" />
@@ -237,26 +224,26 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
         <div ref={locationRef} className={styles.locationPickerWrap}>
           <button ref={locationButtonRef} type="button" className={styles.locationPickerButton} aria-expanded={locationOpen} aria-controls="company-area-options" onClick={() => { setLocationOpen((open) => !open); setSortOpen(false); }}>
             <Icon type="location" />
-            <span>{location?.label ?? "Choose area"}</span>
+            <span>{location?.label ?? "Region wählen"}</span>
           </button>
           {locationOpen && (
             <div id="company-area-options" className={styles.locationMenu}>
-              <div className={styles.locationMenuHeading}><strong>Choose your area</strong><small>Company proximity is approximate.</small></div>
+              <div className={styles.locationMenuHeading}><strong>Wählen Sie Ihre Region</strong><small>Die Nähe ist nur eine Schätzung.</small></div>
               <label className={styles.areaSearch}>
-                <span className="sr-only">Find an area</span>
-                <input type="text" value={areaQuery} onChange={(event) => setAreaQuery(event.target.value)} placeholder="Search Cairo or Giza areas" autoFocus />
+                <span className="sr-only">Region suchen</span>
+                <input type="text" value={areaQuery} onChange={(event) => setAreaQuery(event.target.value)} placeholder="Stadt suchen" autoFocus />
               </label>
               <div className={styles.areaList}>
-                {filteredAreas.length ? filteredAreas.map((item) => <button key={item.label} type="button" className={styles.areaOption} onClick={() => selectLocation(item)}>{item.label}{location?.label === item.label && <span aria-hidden="true">✓</span>}</button>) : <p className={styles.areaEmpty}>No areas found</p>}
+                {filteredAreas.length ? filteredAreas.map((item) => <button key={item.label} type="button" className={styles.areaOption} onClick={() => selectLocation(item)}>{item.label}{location?.label === item.label && <span aria-hidden="true">✓</span>}</button>) : <p className={styles.areaEmpty}>Keine Regionen gefunden</p>}
               </div>
-              {location && <button type="button" className={styles.clearArea} onClick={() => { setLocation(null); setLocationOpen(false); setSortBy("recommended"); }}>Clear area</button>}
+              {location && <button type="button" className={styles.clearArea} onClick={() => { setLocation(null); setLocationOpen(false); setSortBy("recommended"); }}>Region löschen</button>}
             </div>
           )}
         </div>
       </div>
 
       <p className={styles.resultCount} aria-live="polite">
-        {visibleCompanies.length} {visibleCompanies.length === 1 ? "company" : "companies"} found{sortBy === "nearby" && location ? ` · nearest area matches for ${location.label} first` : ""}
+        {visibleCompanies.length} {visibleCompanies.length === 1 ? "Unternehmen" : "Unternehmen"} gefunden{sortBy === "nearby" && location ? ` · nächste Treffer für ${location.label} first` : ""}
       </p>
 
       {visibleCompanies.length > 0 ? (
@@ -270,12 +257,12 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
               key={company.id}
             >
               <div className={styles.companyCard}>
-              <Link className={styles.cardDetailLink} href={`/services/${company.categoryId}/${company.id}`} aria-label={`View all details for ${company.name}`} />
+              <Link className={styles.cardDetailLink} href={`/services/${company.categoryId}/${company.id}`} aria-label={`Alle Details zu ${company.name}`} />
               <header className={styles.companyHeader}>
                 <div className={styles.companyLogo}>
                   <Image
                     src={company.logo}
-                    alt={`${company.name} logo`}
+                    alt={`${company.name} Logo`}
                     fill
                     sizes="64px"
                     className={styles.companyLogoImage}
@@ -284,7 +271,7 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
                 <div className={styles.companyIdentity}>
                   <div className={styles.companyStatus}>
                     <span aria-hidden="true" />
-                    Listed professional
+                    Eingetragener Fachbetrieb
                   </div>
                   <h3>{company.name}</h3>
                 </div>
@@ -299,8 +286,8 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
 
               <div className={styles.pricePanel}>
                 <div className={styles.priceHeading}>
-                  <span>Services &amp; pricing</span>
-                  <span>{company.prices.length} options</span>
+                  <span>Leistungen &amp; Preise</span>
+                  <span>{company.prices.length} Angebote</span>
                 </div>
                 <ul>
                   {company.prices.map((item) => (
@@ -315,13 +302,13 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
               <footer className={styles.companyActions}>
                 <a className={styles.callButton} href={`tel:${company.phone.replace(/\s/g, "")}`}>
                   <Icon type="phone" />
-                  Call now
+                  Jetzt anrufen
                 </a>
-                <a className={styles.iconButton} href={`mailto:${company.email}`} aria-label={`Email ${company.name}`}>
+                <a className={styles.iconButton} href={`mailto:${company.email}`} aria-label={`E-Mail an ${company.name}`}>
                   <Icon type="mail" />
                 </a>
                 <a className={styles.websiteButton} href={company.website} target="_blank" rel="noreferrer">
-                  Website
+                  Webseite
                   <Icon type="external" />
                 </a>
               </footer>
@@ -337,9 +324,9 @@ export default function CompanyDirectory({ companies, categoryTitle }) {
               <path strokeLinecap="round" d="m20 20-4-4M8.5 11h5" />
             </svg>
           </div>
-          <h3>No companies found</h3>
-          <p>Try a different company name or area.</p>
-          <button type="button" onClick={() => setQuery("")}>Clear search</button>
+          <h3>Keine Unternehmen gefunden</h3>
+          <p>Versuchen Sie einen anderen Firmennamen oder Ort.</p>
+          <button type="button" onClick={() => setQuery("")}>Suche löschen</button>
         </div>
       )}
     </section>

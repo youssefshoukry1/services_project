@@ -17,7 +17,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { service_name: serviceName, company_id: companyId } = await params;
   const listing = getListing(serviceName, companyId);
-  if (!listing) return { title: "Company not found | ServiceHub" };
+  if (!listing) return { title: "Unternehmen nicht gefunden | ServiceHub" };
   return { title: `${listing.company.name} | ServiceHub`, description: listing.company.shortDesc };
 }
 
@@ -30,9 +30,9 @@ export default async function CompanyDetailPage({ params }) {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
-        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-          <Link href="/">Home</Link><span aria-hidden="true">/</span>
-          <Link href="/services">Services</Link><span aria-hidden="true">/</span>
+        <nav className={styles.breadcrumbs} aria-label="Brotkrumennavigation">
+          <Link href="/">Startseite</Link><span aria-hidden="true">/</span>
+          <Link href="/services">Dienstleistungen</Link><span aria-hidden="true">/</span>
           <Link href={`/services/${category.id}`}>{category.title}</Link><span aria-hidden="true">/</span>
           <span aria-current="page">{company.name}</span>
         </nav>
@@ -40,7 +40,7 @@ export default async function CompanyDetailPage({ params }) {
         <div className={styles.layout}>
           <div className={styles.mainColumn}>
             <header className={styles.hero}>
-              <div className={styles.logo}><Image src={company.logo} alt={`${company.name} logo`} fill sizes="112px" className={styles.logoImage} priority /></div>
+              <div className={styles.logo}><Image src={company.logo} alt={`${company.name} Logo`} fill sizes="112px" className={styles.logoImage} priority /></div>
               <div className={styles.heroText}>
                 <span className={styles.category}>{category.title}</span>
                 <h1>{company.name}</h1>
@@ -51,8 +51,8 @@ export default async function CompanyDetailPage({ params }) {
 
             <section className={styles.section} aria-labelledby="services-heading">
               <div className={styles.sectionTitle}>
-                <h2 id="services-heading">Services &amp; listed prices</h2>
-                <span>{company.prices.length} {company.prices.length === 1 ? "service" : "services"}</span>
+                <h2 id="services-heading">Leistungen &amp; angegebene Preise</h2>
+                <span>{company.prices.length} {company.prices.length === 1 ? "Leistung" : "Leistungen"}</span>
               </div>
               <ul className={styles.priceList}>
                 {company.prices.map((item) => (
@@ -62,25 +62,25 @@ export default async function CompanyDetailPage({ params }) {
                   </li>
                 ))}
               </ul>
-              <p className={styles.priceNote}>Prices are shown as provided in the listing. Ask the company to confirm the full scope, taxes, materials, travel costs, and final price before booking.</p>
+              <p className={styles.priceNote}>Die Preise stammen aus dem Eintrag. Klären Sie Leistungsumfang, Steuern, Material, Anfahrt und Endpreis vor der Beauftragung direkt mit dem Unternehmen.</p>
             </section>
           </div>
 
           <aside className={styles.contact} aria-labelledby="contact-heading">
-            <span className={styles.contactEyebrow}>Get in touch</span>
-            <h2 id="contact-heading">Contact {company.name}</h2>
-            <p>Discuss your project and request a detailed quote directly from the company.</p>
-            <a className={styles.primaryAction} href={`tel:${company.phone.replace(/\s/g, "")}`}>Call {company.phone}</a>
-            <a className={styles.secondaryAction} href={`mailto:${company.email}`}>Email company</a>
+            <span className={styles.contactEyebrow}>Kontakt aufnehmen</span>
+            <h2 id="contact-heading">{company.name} kontaktieren</h2>
+            <p>Besprechen Sie Ihr Vorhaben und fordern Sie direkt ein Angebot an.</p>
+            <a className={styles.primaryAction} href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone} anrufen</a>
+            <a className={styles.secondaryAction} href={`mailto:${company.email}`}>E-Mail senden</a>
             <dl className={styles.details}>
-              <div><dt>Address</dt><dd>{company.address}</dd></div>
-              <div><dt>Phone</dt><dd><a href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone}</a></dd></div>
-              <div><dt>Email</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
-              <div><dt>Website</dt><dd><a href={company.website} target="_blank" rel="noopener noreferrer">Visit company website <span aria-hidden="true">↗</span></a></dd></div>
+              <div><dt>Adresse</dt><dd>{company.address}</dd></div>
+              <div><dt>Telefon</dt><dd><a href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone}</a></dd></div>
+              <div><dt>E-Mail</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
+              <div><dt>Webseite</dt><dd><a href={company.website} target="_blank" rel="noopener noreferrer">Webseite besuchen <span aria-hidden="true">↗</span></a></dd></div>
             </dl>
           </aside>
         </div>
-        <Link className={styles.backLink} href={`/services/${category.id}`}>← Browse more {category.title.toLowerCase()} companies</Link>
+        <Link className={styles.backLink} href={`/services/${category.id}`}>← Weitere Unternehmen für {category.title.toLowerCase()} ansehen</Link>
       </div>
     </main>
   );
