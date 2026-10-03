@@ -40,12 +40,17 @@ export default async function CompanyDetailPage({ params }) {
         <div className={styles.layout}>
           <div className={styles.mainColumn}>
             <header className={styles.hero}>
-              <div className={styles.logo}><Image src={company.logo} alt={`${company.name} Logo`} fill sizes="112px" className={styles.logoImage} priority /></div>
-              <div className={styles.heroText}>
-                <span className={styles.category}>{category.title}</span>
-                <h1>{company.name}</h1>
-                <p className={styles.address}>{company.address}</p>
-                <p className={styles.summary}>{company.shortDesc}</p>
+              <div className={styles.heroPhoto}>
+                <Image src={company.image} alt={`${company.name}: Fachkraft bei der Arbeit`} fill sizes="(max-width: 849px) 100vw, 720px" className={styles.heroPhotoImage} priority />
+              </div>
+              <div className={styles.heroContent}>
+                <div className={styles.logo}><Image src={company.logo} alt={`${company.name} Logo`} fill sizes="112px" className={styles.logoImage} /></div>
+                <div className={styles.heroText}>
+                  <span className={styles.category}>{category.title}</span>
+                  <h1>{company.name}</h1>
+                  <p className={styles.address}>{company.address}</p>
+                  <p className={styles.summary}>{company.shortDesc}</p>
+                </div>
               </div>
             </header>
 
