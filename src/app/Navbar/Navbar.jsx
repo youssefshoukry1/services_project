@@ -115,9 +115,9 @@ export default function Navbar() {
 
         </div>
         <NavbarSearch isScrolled={isScrolled} />
-        <Link href="/add-company" className={styles.cta} aria-label="Unternehmen kostenlos eintragen">
-          <span className={styles.ctaFull}>Unternehmen kostenlos eintragen</span>
-          <span className={styles.ctaCompact}>Gratis eintragen</span>
+        <Link href="/add-company" className={styles.cta} aria-label="Unternehmenseintrag vorbereiten">
+          <span className={styles.ctaFull}>Eintrag vorbereiten</span>
+          <span className={styles.ctaCompact}>Eintrag erstellen</span>
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
