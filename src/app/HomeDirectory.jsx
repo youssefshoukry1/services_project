@@ -42,6 +42,7 @@ const mixedCompanies = Array.from(
 
 export default function HomeDirectory() {
   const [category, setCategory] = useState("all");
+  const [categoryOpen, setCategoryOpen] = useState(false);
   const [sortBy, setSortBy] = useState("recommended");
   const [sortOpen, setSortOpen] = useState(false);
   const [region, setRegion] = useState("");
@@ -53,6 +54,8 @@ export default function HomeDirectory() {
   const regionButtonRef = useRef(null);
   const sortRef = useRef(null);
   const sortButtonRef = useRef(null);
+  const categoryRef = useRef(null);
+  const categoryButtonRef = useRef(null);
   const companies = (category === "all" ? mixedCompanies : mockData.companies.filter((company) => company.categoryId === category))
     .filter((company) => !region || company.address.endsWith(region))
     .sort((first, second) => sortBy === "alphabetical" ? first.name.localeCompare(second.name, "de-DE") : sortBy === "price-asc" ? lowestPrice(first) - lowestPrice(second) : sortBy === "price-desc" ? lowestPrice(second) - lowestPrice(first) : 0);
@@ -76,6 +79,15 @@ export default function HomeDirectory() {
     return () => { document.removeEventListener("pointerdown", onPointerDown); document.removeEventListener("keydown", onKeyDown); };
   }, [sortOpen]);
 
+  useEffect(() => {
+    if (!categoryOpen) return;
+    const onPointerDown = (event) => { if (!categoryRef.current?.contains(event.target)) setCategoryOpen(false); };
+    const onKeyDown = (event) => { if (event.key === "Escape") { setCategoryOpen(false); categoryButtonRef.current?.focus(); } };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => { document.removeEventListener("pointerdown", onPointerDown); document.removeEventListener("keydown", onKeyDown); };
+  }, [categoryOpen]);
+
   function detectLocation() {
     if (!navigator.geolocation) { setLocationMessage("Standorterkennung wird nicht unterstützt."); return; }
     setDetecting(true);
@@ -96,9 +108,7 @@ export default function HomeDirectory() {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
-        <header className={styles.intro}>
-          <h1>Finden Sie den passenden Profi vor Ort.</h1>
-        </header>
+        <h1 className="sr-only">Dienstleistungen und Unternehmen</h1>
         <div className={styles.layout}>
           <aside className={styles.sidebar} aria-label="Dienstleistungsfilter">
             <div className={styles.sidebarHeading}>Dienstleistungen</div>
@@ -114,14 +124,22 @@ export default function HomeDirectory() {
           <section className={styles.results} aria-labelledby="results-heading">
             <h2 id="results-heading" className="sr-only">Unternehmen finden</h2>
             <div className={styles.directoryTools} role="group" aria-label="Unternehmen filtern und sortieren">
-              <label className={styles.mobileCategory}>
-                <span className="sr-only">Dienstleistung wählen</span>
-                <select value={category} onChange={(event) => setCategory(event.target.value)}>
-                  {filters.map((filter) => <option key={filter.id} value={filter.id}>{filter.title}</option>)}
-                </select>
-              </label>
+              <div className={styles.mobileCategory} ref={categoryRef}>
+                <button ref={categoryButtonRef} type="button" className={styles.categoryButton} aria-label={`Dienstleistung wählen: ${filters.find((item) => item.id === category).title}`} aria-expanded={categoryOpen} aria-controls="home-category-options" onClick={() => { setCategoryOpen((open) => !open); setSortOpen(false); setRegionOpen(false); }}>
+                  <ServiceIcon type={category} className={styles.categoryButtonIcon} />
+                  <span>{filters.find((item) => item.id === category).title}</span>
+                  <svg className={styles.categoryChevron} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="m6 8 4 4 4-4" /></svg>
+                </button>
+                {categoryOpen && <div id="home-category-options" className={styles.categoryMenu}>
+                  {filters.map((filter) => <button key={filter.id} type="button" className={`${styles.categoryOption} ${category === filter.id ? styles.categorySelected : ""}`} aria-pressed={category === filter.id} onClick={() => { setCategory(filter.id); setCategoryOpen(false); categoryButtonRef.current?.focus(); }}>
+                    <ServiceIcon type={filter.id} className={styles.categoryOptionIcon} />
+                    <span><strong>{filter.title}</strong><small>{filter.id === "all" ? "Alle Unternehmen" : `${mockData.companies.filter((company) => company.categoryId === filter.id).length} Unternehmen`}</small></span>
+                    {category === filter.id && <svg className={styles.categoryCheck} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="m4 10 4 4 8-8" /></svg>}
+                  </button>)}
+                </div>}
+              </div>
               <div className={styles.sortWrap} ref={sortRef}>
-                <button ref={sortButtonRef} type="button" className={styles.sortBox} aria-label={`Unternehmen sortieren: ${sortOptions.find((item) => item.value === sortBy).label}`} aria-expanded={sortOpen} aria-controls="home-sort-options" onClick={() => { setSortOpen((open) => !open); setRegionOpen(false); }}>
+                <button ref={sortButtonRef} type="button" className={styles.sortBox} aria-label={`Unternehmen sortieren: ${sortOptions.find((item) => item.value === sortBy).label}`} aria-expanded={sortOpen} aria-controls="home-sort-options" onClick={() => { setSortOpen((open) => !open); setRegionOpen(false); setCategoryOpen(false); }}>
                   <span className={styles.sortLabel}>Sortieren</span>
                   <span className={styles.sortValue}>{sortOptions.find((item) => item.value === sortBy).label}</span>
                   <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="m6 8 4 4 4-4" /></svg>
@@ -131,7 +149,7 @@ export default function HomeDirectory() {
                 </div>}
               </div>
               <div className={styles.regionWrap} ref={regionRef}>
-                <button ref={regionButtonRef} type="button" className={styles.regionButton} aria-expanded={regionOpen} aria-controls="home-region-options" onClick={() => { setRegionOpen((open) => !open); setSortOpen(false); }}>
+                <button ref={regionButtonRef} type="button" className={styles.regionButton} aria-expanded={regionOpen} aria-controls="home-region-options" onClick={() => { setRegionOpen((open) => !open); setSortOpen(false); setCategoryOpen(false); }}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2" /></svg>
                   <span>{region || "Region wählen"}</span>
                 </button>
