@@ -36,6 +36,14 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { to { opacity: .5; } }
 @media (max-width: 399px) { .field { padding-inline: 8px; }.field svg { width: 15px; height: 15px; }.form { grid-template-columns: minmax(0, 1fr) 40px; } }
+@media (max-width: 899px) {
+  .form { grid-template-columns: minmax(0, 1fr) 38px; grid-template-rows: 36px 36px; gap: 4px; border-radius: 13px; padding: 3px; }
+  .field, .submit { height: 36px; border-radius: 9px; }
+  .field { gap: 6px; padding-inline: 8px; }
+  .field svg { width: 15px; height: 15px; }
+  .field input::placeholder { font-size: 13px; }
+  .submit svg { width: 17px; height: 17px; }
+}
 @media (min-width: 900px) {
   .wrap { grid-column: 3; grid-row: 1; }
   .form { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 86px; grid-template-rows: 40px; }

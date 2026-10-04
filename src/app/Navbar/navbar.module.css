@@ -23,6 +23,11 @@
 .scrolled .items { grid-column: 2; grid-row: 1; justify-content: center; }
 .scrolled .cta { grid-column: 4; grid-row: 1; }
 .scrolled .dropdown { top: 64px; max-height: calc(100dvh - 76px); }
+@media (max-width: 899px) {
+  .shell { height: 140px; }
+  .nav { grid-template-rows: 52px 84px; }
+  .dropdown { top: 144px; max-height: calc(100dvh - 156px); }
+}
 @keyframes menu-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 @media (min-width: 900px) {
   .shell { height: 76px; }
