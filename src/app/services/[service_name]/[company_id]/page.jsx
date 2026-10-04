@@ -3,12 +3,31 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { mockData } from "../../../../../mockData";
 import RelatedCompanies from "./RelatedCompanies";
+import ServiceGallery from "./ServiceGallery";
+import { getGalleryImages } from "./gallery-data";
 import styles from "./company-detail.module.css";
 
 function getListing(serviceName, companyId) {
   const category = mockData.categories.find((item) => item.id === serviceName);
   const company = mockData.companies.find((item) => item.id === companyId && item.categoryId === serviceName);
   return category && company ? { category, company } : null;
+}
+
+function ContactCard({ company, mobile = false }) {
+  const headingId = mobile ? "mobile-contact-heading" : "contact-heading";
+  return (
+    <aside className={`${styles.contact} ${mobile ? styles.mobileContact : styles.desktopContact}`} aria-labelledby={headingId}>
+      <h2 id={headingId}>{company.name} kontaktieren</h2>
+      <a className={styles.primaryAction} href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone} anrufen</a>
+      <a className={styles.secondaryAction} href={`mailto:${company.email}`}>E-Mail senden</a>
+      <dl className={styles.details}>
+        <div><dt>Adresse</dt><dd>{company.address}</dd></div>
+        <div><dt>Telefon</dt><dd><a href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone}</a></dd></div>
+        <div><dt>E-Mail</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
+        <div><dt>Webseite</dt><dd><a href={company.website} target="_blank" rel="noopener noreferrer">Webseite besuchen <span aria-hidden="true">↗</span></a></dd></div>
+      </dl>
+    </aside>
+  );
 }
 
 export function generateStaticParams() {
@@ -75,21 +94,12 @@ export default async function CompanyDetailPage({ params }) {
                 ))}
               </ul>
               <p className={styles.priceNote}>Die Preise stammen aus dem Eintrag. Klären Sie Leistungsumfang, Steuern, Material, Anfahrt und Endpreis vor der Beauftragung direkt mit dem Unternehmen.</p>
+              <ContactCard company={company} mobile />
             </section>
+            <ServiceGallery images={getGalleryImages(company.id)} />
           </div>
 
-          <aside className={styles.contact} aria-labelledby="contact-heading">
-            <h2 id="contact-heading">{company.name} kontaktieren</h2>
-            <p>Besprechen Sie Ihr Vorhaben und fordern Sie direkt ein Angebot an.</p>
-            <a className={styles.primaryAction} href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone} anrufen</a>
-            <a className={styles.secondaryAction} href={`mailto:${company.email}`}>E-Mail senden</a>
-            <dl className={styles.details}>
-              <div><dt>Adresse</dt><dd>{company.address}</dd></div>
-              <div><dt>Telefon</dt><dd><a href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone}</a></dd></div>
-              <div><dt>E-Mail</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
-              <div><dt>Webseite</dt><dd><a href={company.website} target="_blank" rel="noopener noreferrer">Webseite besuchen <span aria-hidden="true">↗</span></a></dd></div>
-            </dl>
-          </aside>
+          <ContactCard company={company} />
         </div>
         {relatedCompanies.length > 0 && (
           <section className={styles.related} aria-labelledby="related-heading">

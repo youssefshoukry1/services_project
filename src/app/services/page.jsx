@@ -5,17 +5,14 @@ import styles from "./services.module.css";
 
 const presentation = {
   painters: {
-    description: "Innen- und Außenanstriche, dekorative Oberflächen und Spezialbeschichtungen.",
     image: "/images/services/painting-service.webp",
     alt: "Farbroller, Farbeimer und Pinsel",
   },
   cleaning: {
-    description: "Reinigung von Wohnungen, Büros, Fenstern und Gewerbeflächen.",
     image: "/images/services/cleaning-service.webp",
     alt: "Professionelle Reinigungsgeräte",
   },
   auto_repair: {
-    description: "Wartung, Diagnose, Reifen, Getriebe und Karosserie.",
     image: "/images/services/car-repair-service.webp",
     alt: "Auto und professionelle Werkzeuge",
   },
@@ -41,7 +38,6 @@ export default function DienstleistungenPage() {
 
         <header className={styles.hero}>
           <h1>Wobei können wir Ihnen helfen?</h1>
-          <p>Entdecken Sie lokale Dienstleistungen, vergleichen Sie Preise und kontaktieren Sie Unternehmen direkt.</p>
         </header>
 
         <section className={styles.grid} aria-label="Dienstleistungskategorien">
@@ -61,7 +57,6 @@ export default function DienstleistungenPage() {
                   </div>
                   <div className={styles.content}>
                     <h2>{category.title}</h2>
-                    <p>{item.description}</p>
                     <div className={styles.action}>
                       Dienstleistung ansehen
                       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">

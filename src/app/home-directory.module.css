@@ -3,7 +3,6 @@
 .intro { margin-bottom: 1.8rem; }
 .eyebrow { color: #008080; font-size: .64rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
 .intro h1 { max-width: 38rem; margin-top: .45rem; font-size: clamp(1.65rem, 5.5vw, 2.6rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.12; }
-.intro p { margin-top: .55rem; color: #667085; font-size: .82rem; line-height: 1.5; }
 .layout { display: grid; min-width: 0; gap: 1.3rem; }
 .sidebar { min-width: 0; }
 @media (max-width: 699px) { .sidebar { display: none; } }

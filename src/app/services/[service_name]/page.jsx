@@ -105,15 +105,12 @@ export default async function ServicePage({ params }) {
           <div className={styles.features}>
             <article>
               <h3>Angebote vor Ort</h3>
-              <p>Vergleichen Sie die eingetragenen Betriebe dieser Kategorie.</p>
             </article>
             <article>
               <h3>Übersichtliche Preise</h3>
-              <p>Prüfen Sie Leistungen und Einstiegspreise vor der Kontaktaufnahme.</p>
             </article>
             <article>
               <h3>Direkter Kontakt</h3>
-              <p>Kontaktieren Sie Unternehmen über die angegebenen Kontaktdaten.</p>
             </article>
           </div>
         </section>

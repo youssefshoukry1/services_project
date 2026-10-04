@@ -9,7 +9,6 @@ const services = [
   {
     number: "01",
     title: "Malerarbeiten",
-    description: "Zuverlässige Maler für saubere, langlebige Ergebnisse.",
     image: "/images/services/painting-service.webp",
     alt: "Türkiser Farbroller, Pinsel und Farbeimer",
     href: "/services/painters",
@@ -17,7 +16,6 @@ const services = [
   {
     number: "02",
     title: "Grundreinigung",
-    description: "Saubere Räume ohne Aufwand.",
     image: "/images/services/cleaning-service.webp",
     alt: "Reinigungsspray, Tuch und Bürste",
     href: "/services/cleaning",
@@ -25,7 +23,6 @@ const services = [
   {
     number: "03",
     title: "Autoreparatur",
-    description: "Zuverlässige Werkstätten für Ihr Auto.",
     image: "/images/services/car-repair-service.webp",
     alt: "Modernes Auto mit professionellem Werkzeug",
     href: "/services/auto_repair",
@@ -69,7 +66,6 @@ export default function CardsServicesSection() {
         <header className={styles.heading}>
           <span className={styles.eyebrow}>Dienstleistungen, denen Sie vertrauen können</span>
           <h2 id="services-heading">Hilfe für den Alltag.</h2>
-          <p>Wählen Sie eine Dienstleistung und finden Sie einen Betrieb in Ihrer Nähe.</p>
         </header>
 
         <div className={styles.grid}>
@@ -85,7 +81,6 @@ export default function CardsServicesSection() {
                   </div>
                   <div className={styles.content}>
                     <h3>{service.title}</h3>
-                    <p>{service.description}</p>
                     <Link href={service.href} className={styles.button}>
                       Mehr erfahren
                       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">

@@ -273,7 +273,7 @@ export default function AddCompanyForm() {
         <div className={styles.intro}>
           <Link href="/services" className={styles.backLink}>← Dienstleistungen entdecken</Link>
           <h1>Unternehmenseintrag vorbereiten</h1>
-          <p>Geben Sie Ihre Unternehmensdaten ein und speichern Sie einen Entwurf auf diesem Gerät. Eine Veröffentlichung ist derzeit noch nicht möglich.</p>
+          <p>Speichern Sie Ihren Eintrag als Entwurf auf diesem Gerät. Eine Veröffentlichung ist noch nicht möglich.</p>
         </div>
 
         <div className={styles.layout}>
@@ -286,7 +286,7 @@ export default function AddCompanyForm() {
             {notice && <p className={styles.notice} role="status">{notice}</p>}
 
             {step === 0 && <section className={styles.formSection} aria-labelledby="company-heading">
-              <h2 id="company-heading" ref={stepHeadingRef} tabIndex={-1}>Unternehmen</h2><p>So wird Ihr Unternehmen im Eintrag beschrieben. Alle Felder außer dem Logo sind erforderlich.</p>
+              <h2 id="company-heading" ref={stepHeadingRef} tabIndex={-1}>Unternehmen</h2><p>Alle Felder außer dem Logo sind erforderlich.</p>
               <Field id="category" label="Dienstleistungskategorie" error={errors.categoryId}><CategoryPicker value={form.categoryId} onChange={(value) => update("categoryId", value)} error={errors.categoryId} /></Field>
               <Field id="name" label="Firmenname" error={errors.name}><input id="name" type="text" autoComplete="organization" maxLength="80" value={form.name} onChange={(event) => update("name", event.target.value)} placeholder="z. B. ColorPro Painters" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} /></Field>
               <Field id="shortDesc" label="Kurzbeschreibung" hint="Beschreiben Sie Ihr Angebot in 20 bis 220 Zeichen." error={errors.shortDesc}><textarea id="shortDesc" rows="4" maxLength="220" value={form.shortDesc} onChange={(event) => update("shortDesc", event.target.value)} placeholder="z. B. Innen- und Außenanstriche für Wohngebäude" aria-invalid={Boolean(errors.shortDesc)} aria-describedby={`shortDesc-hint${errors.shortDesc ? " shortDesc-error" : ""}`} /><span className={styles.counter}>{form.shortDesc.length}/220</span></Field>
@@ -294,20 +294,20 @@ export default function AddCompanyForm() {
             </section>}
 
             {step === 1 && <section className={styles.formSection} aria-labelledby="contact-heading">
-              <h2 id="contact-heading" ref={stepHeadingRef} tabIndex={-1}>Kontakt</h2><p>Diese Angaben erscheinen in Ihrem Eintrag. Die Webseite ist optional.</p>
+              <h2 id="contact-heading" ref={stepHeadingRef} tabIndex={-1}>Kontakt</h2><p>Die Webseite ist optional.</p>
               <Field id="address" label="Geschäftsadresse oder Einsatzgebiet" hint="Sie können auch nur den Ort oder die Region angeben." error={errors.address}><input id="address" type="text" autoComplete="street-address" value={form.address} onChange={(event) => update("address", event.target.value)} placeholder="z. B. 10115 Berlin" aria-invalid={Boolean(errors.address)} aria-describedby={`address-hint${errors.address ? " address-error" : ""}`} /></Field>
               <div className={styles.twoColumns}><Field id="phone" label="Telefonnummer" error={errors.phone}><input id="phone" type="tel" autoComplete="tel" value={form.phone} onChange={(event) => update("phone", event.target.value)} placeholder="+49 30 0000 0001" aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? "phone-error" : undefined} /></Field><Field id="email" label="Geschäftliche E-Mail-Adresse" error={errors.email}><input id="email" type="email" autoComplete="email" value={form.email} onChange={(event) => update("email", event.target.value)} placeholder="kontakt@beispiel.de" aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? "email-error" : undefined} /></Field></div>
               <Field id="website" label="Webseite (optional)" hint="Beginnen Sie die Adresse mit https://." error={errors.website}><input id="website" type="url" autoComplete="url" value={form.website} onChange={(event) => update("website", event.target.value)} placeholder="https://beispiel.de" aria-invalid={Boolean(errors.website)} aria-describedby={`website-hint${errors.website ? " website-error" : ""}`} /></Field>
             </section>}
 
             {step === 2 && <section className={styles.formSection} aria-labelledby="services-heading">
-              <h2 id="services-heading" ref={stepHeadingRef} tabIndex={-1}>Leistungen und Preise</h2><p>Beschreiben Sie mindestens eine Leistung. Geben Sie dazu einen Preis, Einstiegspreis oder Stundensatz an.</p>
+              <h2 id="services-heading" ref={stepHeadingRef} tabIndex={-1}>Leistungen und Preise</h2><p>Geben Sie mindestens eine Leistung mit Preis oder Stundensatz an.</p>
               {form.prices.map((item, index) => <div className={styles.priceRow} key={index}><div className={styles.priceHeading}><strong>Leistung {index + 1}</strong>{form.prices.length > 1 && <button type="button" onClick={() => changePrices(form.prices.filter((_, itemIndex) => itemIndex !== index))} aria-label={`Leistung ${index + 1} entfernen`}>Entfernen</button>}</div><div className={styles.twoColumns}><Field id={`service-${index}`} label="Leistungsname" error={errors[`service-${index}`]}><input id={`service-${index}`} type="text" value={item.service} onChange={(event) => updatePrice(index, "service", event.target.value)} placeholder="z. B. Innenwände streichen" aria-invalid={Boolean(errors[`service-${index}`])} aria-describedby={errors[`service-${index}`] ? `service-${index}-error` : undefined} /></Field><Field id={`price-${index}`} label="Preis oder Satz" error={errors[`price-${index}`]}><input id={`price-${index}`} type="text" value={item.price} onChange={(event) => updatePrice(index, "price", event.target.value)} placeholder="z. B. ab 10 € / m²" aria-invalid={Boolean(errors[`price-${index}`])} aria-describedby={errors[`price-${index}`] ? `price-${index}-error` : undefined} /></Field></div></div>)}
               <button type="button" className={styles.addService} onClick={() => changePrices([...form.prices, { service: "", price: "" }])}>+ Leistung hinzufügen</button>
             </section>}
 
             {step === 3 && <section className={styles.formSection} aria-labelledby="review-heading">
-              <h2 id="review-heading" ref={stepHeadingRef} tabIndex={-1}>Angaben prüfen</h2><p>Sehen Sie Ihre Angaben durch. Sie können jeden Abschnitt direkt ändern.</p>
+              <h2 id="review-heading" ref={stepHeadingRef} tabIndex={-1}>Angaben prüfen</h2><p>Änderungen sind in jedem Abschnitt möglich.</p>
               <div className={styles.reviewCard}>
                 <div className={styles.reviewGroup}><div className={styles.reviewGroupHeading}><h3>Unternehmen</h3><button type="button" onClick={() => changeStep(0)} aria-label="Unternehmen ändern">Ändern</button></div><div className={styles.reviewHeader}><div className={styles.preview}>{logoPreview ? <img src={logoPreview} alt="" /> : initials}</div><div><strong>{form.name}</strong><span>{category?.title}</span></div></div><p>{form.shortDesc}</p></div>
                 <div className={styles.reviewGroup}><div className={styles.reviewGroupHeading}><h3>Kontakt</h3><button type="button" onClick={() => changeStep(1)} aria-label="Kontakt ändern">Ändern</button></div><dl><div><dt>Adresse oder Einsatzgebiet</dt><dd>{form.address}</dd></div><div><dt>Telefon</dt><dd>{form.phone}</dd></div><div><dt>E-Mail</dt><dd>{form.email}</dd></div><div><dt>Webseite</dt><dd>{form.website || "Nicht angegeben"}</dd></div></dl></div>

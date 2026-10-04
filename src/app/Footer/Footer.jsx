@@ -39,7 +39,6 @@ export default function Footer() {
         <div className={styles.top}>
           <div className={styles.brandColumn}>
             <Link href="/" className={styles.logo} aria-label="ServiceHub Startseite">Service<span>Hub</span></Link>
-            <p>Finden Sie Fachbetriebe in Ihrer Nähe. Vergleichen Sie Leistungen und nehmen Sie direkt Kontakt auf.</p>
             {socialLinks.length > 0 && <div className={styles.socials} aria-label="ServiceHub in sozialen Medien">{socialLinks.map((social) => <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} title={social.name}><SocialIcon type={social.icon} /></a>)}</div>}
           </div>
 
@@ -60,7 +59,6 @@ export default function Footer() {
 
           <div className={styles.contactColumn}>
             <h2>Nachricht senden</h2>
-            <p>Haben Sie eine Frage zu ServiceHub? Schreiben Sie uns.</p>
             <form id="contact-form" onSubmit={handleSubmit} className={styles.form}>
               <label htmlFor="footer-email" className="sr-only">Ihre E-Mail-Adresse</label>
               <input id="footer-email" type="email" autoComplete="email" required value={email} onChange={(event) => { setEmail(event.target.value); setStatus(""); }} placeholder="Ihre E-Mail-Adresse" />

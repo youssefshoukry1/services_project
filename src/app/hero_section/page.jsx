@@ -51,9 +51,6 @@ export default function Hero() {
               })}
             </h1>
 
-            <p className="hero-rise mx-auto mt-4 max-w-md text-sm leading-6 text-gray-500 [animation-delay:1.25s] sm:text-base">
-              Finden Sie lokale Fachbetriebe in wenigen Sekunden.
-            </p>
           </div>
 
           <div className="hero-rise mt-7 [animation-delay:1.4s] sm:mt-10">

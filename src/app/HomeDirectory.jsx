@@ -24,7 +24,6 @@ export default function HomeDirectory() {
       <div className={styles.container}>
         <header className={styles.intro}>
           <h1>Finden Sie den passenden Profi vor Ort.</h1>
-          <p>Entdecken Sie Dienstleistungen und kontaktieren Sie Unternehmen direkt.</p>
         </header>
         <div className={styles.layout}>
           <aside className={styles.sidebar} aria-label="Dienstleistungsfilter">
